@@ -101,7 +101,7 @@ export class Player extends Character{
 
     // Player updates
     update() {
-        if (this.isAnimation("a")) {
+        if (this.isAnimation("a") && (this.x > 0)) {
             if (this.movement.left) this.x -= this.speed;  // Move to left
         }
         if (this.isAnimation("d")) {
@@ -111,39 +111,48 @@ export class Player extends Character{
             console.log(this.topOfPlatform)
             if (this.movement.down || this.topOfPlatform) this.y -= (this.bottom * .50);  // jump 22% higher than bottom
             this.gravityEnabled = true;
-        } 
+        }
 
         // Perform super update actions
         super.update();
     }
-
-    // Player action on collisions
     collisionAction() {
         if (this.collisionData.touchPoints.other.id === "tube") {
             // Collision with the left side of the Tube
             if (this.collisionData.touchPoints.other.left) {
                 this.movement.right = false;
+                console.log("tube touch left");
             }
             // Collision with the right side of the Tube
             if (this.collisionData.touchPoints.other.right) {
                 this.movement.left = false;
+                console.log("tube touch right");
             }
             // Collision with the top of the player
             if (this.collisionData.touchPoints.other.ontop) {
+                this.movement.down = false;
                 this.x = this.collisionData.touchPoints.other.x;
+                console.log("tube touch top");
             }
-        }
+        } else {
+            // Reset movement flags if not colliding with a tube
+            this.movement.left = true;
+            this.movement.right = true;
+            this.movement.down = true;
+        };
+        // *******************************
+        // Platform collision
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
-            // Collision with the left side of the Tub
+            // Collision with the left side of the Platform
             console.log("id")
             if (this.collisionData.touchPoints.other.left && (this.topOfPlatform === true)) {
                 this.movement.right = false;
-                console.log("a")
+                console.log("platform left")
             }
-            // Collision with the right side of the Tube
+            // Collision with the right side of the platform
             if (this.collisionData.touchPoints.other.right && (this.topOfPlatform === true)) {
                 this.movement.left = false;
-                console.log("b")
+                console.log("platform right")
             }
             // Collision with the top of the player
             if (this.collisionData.touchPoints.this.ontop) {
@@ -156,80 +165,97 @@ export class Player extends Character{
             }
             if (this.collisionData.touchPoints.this.top) {
                 this.gravityEnabled = false;
-                this.topOfPlatform = true; 
+                this.topOfPlatform = true;
                 console.log(this.topOfPlatform + "top")
                 console.log(this.gravityEnabled + "grav")
                 //console.log("e");
             }
-        }
-        else {
-            if (this.collisionData.touchPoints.other.id === "thing2") {
-                // Collision with the left side of the Tub
-                if (this.collisionData.touchPoints.coin.left) {
-                    this.touchCoin = true;
-                    console.log("o")
-                    window.location.reload();
-                }
-                // Collision with the right side of the Tube
-                if (this.collisionData.touchPoints.coin.right) {
-                    console.log("p")
-                    this.touchCoin = true;
-                    window.location.reload();
-                }
-            }    
-
-            // Enemy collision
+        } else {
+            this.topOfPlatform = false;
+            this.gravityEnabled = true;
+            /* this.movement.left = true;
+            this.movement.right = true;
+            this.movement.down = true; */
+        };
+        // The else statement above may be causing issues
+        // *******************************
+        // Enemy collision
         if (this.collisionData.touchPoints.other.id === "enemy") {
             // Collision with the left side of the Enemy
             if (this.collisionData.touchPoints.other.left) {
-                window.location.reload(); // Reload the game to reset it
+              // Add a bounce effect here
+              const jumpHeight = 500; // Adjust this value to control the bounce height
+              this.y -= jumpHeight; // Move the player up by jumpHeight   
             }
             // Collision with the right side of the Enemy
             if (this.collisionData.touchPoints.other.right) {
-                deathController.setDeath(1);
                 window.location.reload(); // Reload the game to reset it
             }
             // Collision with the top of the Enemy
             if (this.collisionData.touchPoints.other.ontop) {
-                this.destroyGoomba(); // Function to handle Goomba destruction
-                // Make Mario Bounce
+                // Add a bounce effect here
+                const jumpHeight = 500; // Adjust this value to control the bounce height
+                this.y -= jumpHeight; // Move the player up by jumpHeight
             }
-          }
-            
-            // Reset movement flags if not colliding with a tube
-            this.topOfPlatform = false;
-            this.movement.left = true;
-            this.movement.right = true;
-            this.movement.down = true;
-            this.gravityEnabled = true;
-        }
+        };
+        if (this.collisionData.touchPoints.other.id === "thing2") {
+            // Collision with the left side of the Tub
+            if (this.collisionData.touchPoints.coin.left) {
+                this.touchCoin = true;
+                console.log("o")
+                window.location.reload();
+            }
+            // Collision with the right side of the Tube
+            if (this.collisionData.touchPoints.coin.right) {
+                console.log("p")
+                this.touchCoin = true;
+                window.location.reload();
+            }
+        };
     }
     
     // Event listener key down
-    handleKeyDown(event) {
-        if (this.playerData.hasOwnProperty(event.key)) {
-            const key = event.key;
-            if (!(event.key in this.pressedKeys)) {
-                this.pressedKeys[event.key] = this.playerData[key];
-                this.setAnimation(key);
-                // player active
-                this.isIdle = false;
-            }
+// Event listener key down
+handleKeyDown(event) {
+    if (this.playerData.hasOwnProperty(event.key)) {
+        const key = event.key;
+        if (!(event.key in this.pressedKeys)) {
+            this.pressedKeys[event.key] = this.playerData[key];
+            this.setAnimation(key);
+            // player active
+            this.isIdle = false;
+        }
+        if ((key === "a") && (this.x > 0)) {
+            GameEnv.backgroundSpeed2 = -0.1;
+            GameEnv.backgroundSpeed = -0.4;
+        }
+        if ((key === "d") && (this.x > 75)) {
+            GameEnv.backgroundSpeed2 = 0.1;
+            GameEnv.backgroundSpeed = 0.4;
         }
     }
+}
 
-    // Event listener key up
-    handleKeyUp(event) {
-        if (this.playerData.hasOwnProperty(event.key)) {
-            const key = event.key;
-            if (event.key in this.pressedKeys) {
-                delete this.pressedKeys[event.key];
-            }
-            this.setAnimation(key);  
-            // player idle
-            this.isIdle = true;     
+// Event listener key up
+handleKeyUp(event) {
+    if (this.playerData.hasOwnProperty(event.key)) {
+        const key = event.key;
+        if (event.key in this.pressedKeys) {
+            delete this.pressedKeys[event.key];
         }
+        if ((key === "a") || (this.x === 0)) {
+            GameEnv.backgroundSpeed = 0;
+            GameEnv.backgroundSpeed2 = 0;
+        }
+        if (key === "d") {
+            GameEnv.backgroundSpeed = 0;
+            GameEnv.backgroundSpeed2 = 0;
+        }
+        this.setAnimation(key);  
+        // player idle
+        this.isIdle = true;     
     }
+}
 
     // Override destroy() method from GameObject to remove event listeners
     destroy() {
