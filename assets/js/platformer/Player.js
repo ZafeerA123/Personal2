@@ -87,7 +87,7 @@ export class Player extends Character{
         if (result) {
             // Adjust horizontal position during the jump
             const horizontalJumpFactor = 0.1; // Adjust this factor as needed
-            this.x += this.speed * horizontalJumpFactor;  
+            this.x += (this.speed * 1.6) * horizontalJumpFactor;  
         }
     
         // return to directional animation (direction?)
