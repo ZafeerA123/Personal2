@@ -1,4 +1,4 @@
-$high-emph: rgba(white, 0.87);
+$high-emph: rgba(rgb(255, 215, 0), 0.99);
 $med-emph: rgba(white, 0.69); 
 $low-emph: rgba(white, 0.38);
 $dark-grey : #121212; 
@@ -12,7 +12,7 @@ html, body, input, textarea, select, button {
 }
 
 a {
-    color: rgb(75, 186, 255) !important;
+    color: rgb(0, 127, 255) !important;
 }
 
 a:hover {
