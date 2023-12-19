@@ -17,8 +17,7 @@ permalink: /game2/
         background-color:white;
     }
 </style>
-<audio id="audio" src="/Team-Project/audio/2023-10-23-Menu_Theme.mp3" preload="auto"></audio>
-<audio id="audio2" src="/Team-Project/audio/box.wav" preload="auto"></audio>
+
 
 <button id="start">start</button>
 <canvas id="mainDisplay" class="container" height="500px" width="500px"></canvas>
@@ -39,7 +38,7 @@ permalink: /game2/
 <div></div>
 <canvas id="subDisplay1g" class="container2" height="500px" width="500px"></canvas>
 
-<audio id="mainAudio" src="/Team-Project/audio/MainRoomAmbience.mp3" preload="auto"></audio>
+
 
 <script type="module">
 //import needed modules
