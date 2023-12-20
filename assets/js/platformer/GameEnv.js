@@ -1,15 +1,7 @@
 export class GameEnv {
-    // game managed object
-    static currentLevel = null;
-    static player = null;
-    static levels = [];
+    // Prototype static variables
     static gameObjects = [];
 
-    // game attributes
-    static backgroundSpeed = 0;
-    static backgroundSpeed2 = 0;
-    static gameSpeed = 2;
-    static gravity = 3;
     static innerWidth;
     static prevInnerWidth;
     static innerHeight;
@@ -18,15 +10,15 @@ export class GameEnv {
     static prevBottom
     static floor;
     static prevFloor;
-    // calculated size properties
+    static gameSpeed;
+    static gravity;
+    static currentLevel;
+    static player;
+
     static backgroundHeight = 0;
     static platformHeight = 0;
 
-    // canvas filter property
     static isInverted = true;
-
-    static touchCoin = false;
-
 
     // Make the constructor private to prevent instantiation
     constructor() {
@@ -35,7 +27,7 @@ export class GameEnv {
 
     static update() {
         // Update game state, including all game objects
-        for (const gameObject of GameEnv.gameObjects) {
+        for (const gameObject of this.gameObjects) {
             gameObject.update();
             gameObject.draw();
         }
@@ -54,14 +46,24 @@ export class GameEnv {
     static setBottom() {
         // sets the bottom or gravity 0
         this.bottom =
-        this.top + this.backgroundHeight;
+        this.backgroundHeight;
     }
 
+    static setFloor() {
+        // sets the bottom or gravity 0
+        this.floor =
+        this.backgroundHeight - this.platformHeight > this.top?
+        this.backgroundHeight - this.platformHeight:
+        this.backgroundHeight;
+    }
+
+    
     // Setup for Game Environment 
     static initialize() {
         // store previous for ratio calculatins on resize
         this.prevInnerWidth = this.innerWidth;
         this.prevBottom = this.bottom;
+        this.prevFloor = this.floor;
     
         // game uses available width and heith
         this.innerWidth = window.innerWidth;
@@ -76,54 +78,32 @@ export class GameEnv {
         GameEnv.initialize();  // Update GameEnv dimensions
 
         // Call the sizing method on all game objects
-        for (var gameObject of GameEnv.gameObjects){
-            gameObject.size();
+        for (var gameObj of GameEnv.gameObjects){
+            gameObj.size();
         }
     }
 
     static update() {
         // Update game state, including all game objects
-        for (const gameObject of GameEnv.gameObjects) {
+        for (const gameObject of this.gameObjects) {
             gameObject.update();
-            gameObject.serialize();
             gameObject.draw();
-        }
-    }
-
-    // Destroy all existing game objects
-    static destroy() {
-        // Destroy objects in reverse order
-        for (var i = GameEnv.gameObjects.length - 1; i >= 0; i--) {
-            const gameObject = GameEnv.gameObjects[i];
-            gameObject.destroy();
         }
     }
 
     // Toggle "canvas filter property" between alien and normal
     static toggleInvert() {
-        for (var gameObject of GameEnv.gameObjects){
-            if (gameObject.invert && this.isInverted) {  // toggle off
-                gameObject.canvas.style.filter = "none";  // remove filter
-            } else if (gameObject.invert) { // toggle on
-                gameObject.canvas.style.filter = "invert(100%)";  // remove filter
+        for (var gameObj of GameEnv.gameObjects){
+            if (gameObj.invert && this.isInverted) {  // toggle off
+                gameObj.canvas.style.filter = "none";  // remove filter
+            } else if (gameObj.invert) { // toggle on
+                gameObj.canvas.style.filter = "invert(100%)";  // remove filter
             } else {
-                gameObject.canvas.style.filter = "none";  // remove filter
+                gameObj.canvas.style.filter = "none";  // remove filter
             }
         }
         this.isInverted = !this.isInverted;  // switch boolean value
     }
-    static touchingCoin() {
-        let score = 0;
-        let coinValue = 0;
-        score = 0;
-        coinValue = 0;
-        if (Player.touchCoin === true) {
-            document.getElementById('score').innerText = `Score: ${score}`;
-            score = score++;
-        }
-
-    }
 }
-    
 
 export default GameEnv;
