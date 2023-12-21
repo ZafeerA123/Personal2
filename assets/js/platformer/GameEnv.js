@@ -1,7 +1,13 @@
 export class GameEnv {
-    // Prototype static variables
+    // game managed object
+    static currentLevel = null;
+    static player = null;
+    static levels = [];
     static gameObjects = [];
 
+    // game attributes
+    static gameSpeed = 2;
+    static gravity = 3;
     static innerWidth;
     static prevInnerWidth;
     static innerHeight;
@@ -10,15 +16,18 @@ export class GameEnv {
     static prevBottom
     static floor;
     static prevFloor;
-    static gameSpeed;
-    static gravity;
-    static currentLevel;
-    static player;
-
+    // calculated size properties
     static backgroundHeight = 0;
     static platformHeight = 0;
 
+    //parallax
+    static backgroundSpeed2 = 0;
+    static backgroundSpeed = 0;
+
+    // canvas filter property
     static isInverted = true;
+
+    static gameStartOver = true; //variable for the if statement
 
     // Make the constructor private to prevent instantiation
     constructor() {
@@ -27,7 +36,7 @@ export class GameEnv {
 
     static update() {
         // Update game state, including all game objects
-        for (const gameObject of this.gameObjects) {
+        for (const gameObject of GameEnv.gameObjects) {
             gameObject.update();
             gameObject.draw();
         }
@@ -46,24 +55,14 @@ export class GameEnv {
     static setBottom() {
         // sets the bottom or gravity 0
         this.bottom =
-        this.backgroundHeight;
+        this.top + this.backgroundHeight;
     }
 
-    static setFloor() {
-        // sets the bottom or gravity 0
-        this.floor =
-        this.backgroundHeight - this.platformHeight > this.top?
-        this.backgroundHeight - this.platformHeight:
-        this.backgroundHeight;
-    }
-
-    
     // Setup for Game Environment 
     static initialize() {
         // store previous for ratio calculatins on resize
         this.prevInnerWidth = this.innerWidth;
         this.prevBottom = this.bottom;
-        this.prevFloor = this.floor;
     
         // game uses available width and heith
         this.innerWidth = window.innerWidth;
@@ -78,32 +77,117 @@ export class GameEnv {
         GameEnv.initialize();  // Update GameEnv dimensions
 
         // Call the sizing method on all game objects
-        for (var gameObj of GameEnv.gameObjects){
-            gameObj.size();
+        for (var gameObject of GameEnv.gameObjects){
+            gameObject.size();
         }
     }
 
     static update() {
         // Update game state, including all game objects
-        for (const gameObject of this.gameObjects) {
+        for (const gameObject of GameEnv.gameObjects) {
             gameObject.update();
+            gameObject.serialize();
             gameObject.draw();
+        }
+    }
+
+    // Destroy all existing game objects
+    static destroy() {
+        // Destroy objects in reverse order
+        for (var i = GameEnv.gameObjects.length - 1; i >= 0; i--) {
+            const gameObject = GameEnv.gameObjects[i];
+            gameObject.destroy();
         }
     }
 
     // Toggle "canvas filter property" between alien and normal
     static toggleInvert() {
-        for (var gameObj of GameEnv.gameObjects){
-            if (gameObj.invert && this.isInverted) {  // toggle off
-                gameObj.canvas.style.filter = "none";  // remove filter
-            } else if (gameObj.invert) { // toggle on
-                gameObj.canvas.style.filter = "invert(100%)";  // remove filter
+        for (var gameObject of GameEnv.gameObjects){
+            if (gameObject.invert && this.isInverted) {  // toggle off
+                gameObject.canvas.style.filter = "none";  // remove filter
+            } else if (gameObject.invert) { // toggle on
+                gameObject.canvas.style.filter = "invert(100%)";  // remove filter
             } else {
-                gameObj.canvas.style.filter = "none";  // remove filter
+                gameObject.canvas.style.filter = "none";  // remove filter
             }
         }
         this.isInverted = !this.isInverted;  // switch boolean value
     }
+}
+
+let time = 0; // Initialize time variable
+let timerInterval; // Variable to hold the interval reference
+
+
+// Function to update and display the timer
+function updateTimer() {
+    const id = document.getElementById("gameOver");
+    if (id.hidden == false) {
+        stopTimer()
+        time=-1
+    }
+   time++; // Increment time (you can adjust this based on your game logic)
+
+
+   // Display the updated time in the span element with id 'timeScore'
+   const timeScoreElement = document.getElementById('timeScore');
+   if (timeScoreElement) {
+       timeScoreElement.textContent = time; // Update the displayed time
+   }
+}
+
+
+// Function to start the timer
+function startTimer() {
+   // Start the timer interval, updating the timer every second (1000 milliseconds)
+   timerInterval = setInterval(updateTimer, 1000);
+}
+
+
+// Function to stop the timer
+function stopTimer() {   
+    clearInterval(timerInterval); // Clear the interval to stop the timer
+ }
+
+
+// Event listener for the start game button click
+document.getElementById('startGame').addEventListener('click', () => {
+   startTimer(); // Start the timer when the game starts
+});
+
+
+// Function to reset the timer
+function resetTimer() {
+   stopTimer(); // Stop the timer
+   time = 0; // Reset the time variable
+   updateTimer(); // Update the displayed time to show 0
+}
+
+
+// Game Over callback
+async function gameOverCallBack() {
+   const id = document.getElementById("gameOver");
+   id.hidden = false;
+
+
+   // Stop the timer on game over
+   stopTimer();
+
+
+   // Use waitForRestart to wait for the restart button click
+   await waitForButton('restartGame');
+   id.hidden = true;
+
+
+   // Change currentLevel to start/restart value of null
+   GameEnv.currentLevel = null;
+
+
+   // Reset the timer when restarting the game
+   resetTimer();
+
+
+   return true;
 }
 
 export default GameEnv;

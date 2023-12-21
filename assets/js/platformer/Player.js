@@ -324,13 +324,3 @@ handleKeyUp(event) {
 
 
 export default Player;
-
-
-
-
-
-
-
-
-
-
