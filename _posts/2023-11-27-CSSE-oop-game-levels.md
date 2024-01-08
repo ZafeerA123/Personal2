@@ -161,64 +161,198 @@ permalink: /mariogame
     }
   }
 };
-  // Function to switch to the leaderboard screen
-    function showLeaderboard() {
-      const id = document.getElementById("gameOver");
-      id.hidden = false;
-      // Hide game canvas and controls
-      document.getElementById('canvasContainer').style.display = 'none';
-      document.getElementById('controls').style.display = 'none';
+// Sort scores from lowest to highest
+function sortScoresLowToHigh() {
+  const leaderboardSection = document.getElementById('leaderboardSection');
+  const scores = Array.from(leaderboardSection.children);
 
-    // Create and display leaderboard section
-    const leaderboardSection = document.createElement('div');
-    leaderboardSection.id = 'leaderboardSection';
-    leaderboardSection.innerHTML = '<h1 style="text-align: center; font-size: 18px;">Leaderboard </h1>';
-    document.querySelector(".page-content").appendChild(leaderboardSection)
-    // document.body.appendChild(leaderboardSection);
+  scores.sort((a, b) => {
+    const scoreA = parseInt(a.innerText.split(',')[1]);
+    const scoreB = parseInt(b.innerText.split(',')[1]);
+    return scoreA - scoreB;
+  });
 
-    const playerScores = localStorage.getItem("playerScores")
-    const playerScoresArray = playerScores.split(";")
-    const scoresObj = {}
-    const scoresArr = []
-    for(let i = 0; i< playerScoresArray.length-1; i++){
-      const temp = playerScoresArray[i].split(",")
-      scoresObj[temp[0]] = parseInt(temp[1])
-      scoresArr.push(parseInt(temp[1]))
+  leaderboardSection.innerHTML = '';
+  scores.forEach(score => leaderboardSection.appendChild(score));
+}
+
+// Sort scores from highest to lowest
+function sortScoresHighToLow() {
+  const leaderboardSection = document.getElementById('leaderboardSection');
+  const scores = Array.from(leaderboardSection.children);
+
+  scores.sort((a, b) => {
+    const scoreA = parseInt(a.innerText.split(',')[1]);
+    const scoreB = parseInt(b.innerText.split(',')[1]);
+    return scoreB - scoreA;
+  });
+
+  leaderboardSection.innerHTML = '';
+  scores.forEach(score => leaderboardSection.appendChild(score));
+}
+
+// Sort scores alphabetically by names
+function sortScoresAlphabetically() {
+  const leaderboardSection = document.getElementById('leaderboardSection');
+  const scores = Array.from(leaderboardSection.children);
+
+  // Exclude the first row (header row with "Leaderboard" text)
+  const scoresToSort = scores.slice(1);
+
+  scoresToSort.sort((a, b) => {
+    const nameA = a.innerText.split(',')[0].toLowerCase();
+    const nameB = b.innerText.split(',')[0].toLowerCase();
+    return nameA.localeCompare(nameB);
+  });
+
+  leaderboardSection.innerHTML = '';
+  
+  // Append the header row first
+  leaderboardSection.appendChild(scores[0]);
+  
+  // Append the sorted scores after the header row
+  scoresToSort.forEach(score => leaderboardSection.appendChild(score));
+}
+
+function sortScoresNewestToOldest() {
+  const leaderboardSection = document.getElementById('leaderboardSection');
+  const scores = Array.from(leaderboardSection.children);
+
+  // Sort the scores based on the timestamp when they were added (assuming timestamp is in the format "YYYY-MM-DD HH:mm:ss")
+  scores.sort((a, b) => {
+    const timestampA = new Date(a.dataset.timestamp).getTime();
+    const timestampB = new Date(b.dataset.timestamp).getTime();
+    return timestampB - timestampA;
+  });
+
+  leaderboardSection.innerHTML = '';
+  scores.forEach(score => leaderboardSection.appendChild(score));
+}
+
+function clearPlayersAndScores() {
+  // Clear player scores from local storage
+  localStorage.removeItem('playerScores');
+  
+  // Optionally, you might want to reset other relevant data if needed
+  
+  // Provide feedback to the user that data has been cleared
+  alert('Players and scores have been cleared.');
+}
+
+// Create a button element
+const clearButton = document.createElement('button');
+clearButton.textContent = 'Clear Players & Scores';
+
+// Add an event listener to the button to trigger the clearing function
+clearButton.addEventListener('click', clearPlayersAndScores);
+
+// Append the button to an existing DOM element, for instance, the sidebar
+document.querySelector('.sidebar-content').appendChild(clearButton);
+
+  function showLeaderboard() {
+    const id = document.getElementById("gameOver");
+    id.hidden = false;
+    // Hide game canvas and controls
+    document.getElementById('canvasContainer').style.display = 'none';
+    document.getElementById('controls').style.display = 'none';
+
+    const timeScore = document.getElementById("score");
+    timeScore.style.display = "none";
+
+    // Check if leaderboard section already exists
+    let leaderboardSection = document.getElementById('leaderboardSection');
+    if (!leaderboardSection) {
+        // Create leaderboard section if it doesn't exist
+        leaderboardSection = document.createElement('div');
+        leaderboardSection.id = 'leaderboardSection';
+        leaderboardSection.innerHTML = '<h1 style="text-align: center; font-size: 18px;">Leaderboard </h1>';
+        document.querySelector(".page-content").appendChild(leaderboardSection);
+    } else {
+        // Clear existing leaderboard contents
+        leaderboardSection.innerHTML = '<h1 style="text-align: center; font-size: 18px;">Leaderboard </h1>';
     }
 
-    scoresArr.sort()
+  // Retrieve player scores and update the leaderboard
+  const playerScores = localStorage.getItem("playerScores");
+  const playerScoresArray = playerScores.split(";");
+  const scoresObj = {};
+  const scoresArr = [];
+  for (let i = 0; i < playerScoresArray.length - 1; i++) {
+      const temp = playerScoresArray[i].split(",");
+      scoresObj[temp[0]] = parseInt(temp[1]);
+      scoresArr.push(parseInt(temp[1]));
+  }
 
-    const finalScoresArr = []
-    for (let i = 0; i<scoresArr.length; i++) {
+  scoresArr.sort();
+
+  const finalScoresArr = [];
+  for (let i = 0; i < scoresArr.length; i++) {
       for (const [key, value] of Object.entries(scoresObj)) {
-        if (scoresArr[i] ==value) {
-          finalScoresArr.push(key + "," + value)
-          break;
-        }
+          if (scoresArr[i] == value) {
+              finalScoresArr.push(key + "," + value);
+              break;
+          }
       }
-    }
-    let rankScore = 1;
-    for (let i =0; i<finalScoresArr.length; i++) {
+  }
+
+  // Append updated scores to the leaderboard section
+  for (let i = 0; i < finalScoresArr.length; i++) {
       const rank = document.createElement('div');
-      rank.id = `rankScore${rankScore}`;
+      rank.id = `rankScore${i + 1}`;
       rank.innerHTML = `<h2 style="text-align: center; font-size: 18px;">${finalScoresArr[i]} </h2>`;
-      document.querySelector(".page-content").appendChild(rank)    
-    }
-    const backButton = document.createElement('button');
+      leaderboardSection.appendChild(rank);
+  }
+
+  // Check if the back button already exists
+  let backButton = document.getElementById('leaderboardBackButton');
+  if (!backButton) {
+    // Create and append back button if it doesn't exist
+    backButton = document.createElement('button');
+    backButton.id = 'leaderboardBackButton';
     backButton.innerText = 'Back';
     backButton.addEventListener('click', () => {
         // Show canvas and controls
         document.getElementById('canvasContainer').style.display = 'block';
         document.getElementById('controls').style.display = 'block';
 
-        // Hide leaderboard and remove leaderboard section
+        // Hide leaderboard
         id.hidden = true;
-        leaderboardSection.remove();
+
+        timeScore.style.display = "block";
     });
     document.querySelector(".page-content").appendChild(backButton);
+  }
+  let filtersButton = document.getElementById('showFilters');
+  if (!filtersButton) {
+    filtersButton = document.createElement('button');
+    filtersButton.id = 'showFilters';
+    filtersButton.innerText = 'Filters';
+    document.querySelector(".page-content").appendChild(filtersButton);
+
+    const filterButtonsContainer = document.createElement('div');
+    filterButtonsContainer.id = 'filterButtonsContainer';
+    filterButtonsContainer.style.display = 'none';
+
+    filterButtonsContainer.innerHTML = `
+      <button id="sortLowToHigh">Sort Low to High</button>
+      <button id="sortHighToLow">Sort High to Low</button>
+      <button id="sortAlphabetical">Sort Alphabetical</button>
+      <button id="sortNewestToOldest">Sort Newest to Oldest</button>
+    `;
+    document.querySelector(".page-content").appendChild(filterButtonsContainer);
+
+    filtersButton.addEventListener('click', function () {
+      const filtersContainer = document.getElementById('filterButtonsContainer');
+      filtersContainer.style.display = (filtersContainer.style.display === 'none') ? 'block' : 'none';
+    });
+
+    document.getElementById('sortLowToHigh').addEventListener('click', sortScoresLowToHigh);
+    document.getElementById('sortHighToLow').addEventListener('click', sortScoresHighToLow);
+    document.getElementById('sortAlphabetical').addEventListener('click', sortScoresAlphabetically);
+    document.getElementById('sortNewestToOldest').addEventListener('click', sortScoresNewestToOldest);
+  }
 }
 
-// Event listener for leaderboard button to be clicked
 document.getElementById('leaderboardButton').addEventListener('click', showLeaderboard);
 
     // add File to assets, ensure valid site.baseurl
