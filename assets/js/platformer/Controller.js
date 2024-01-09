@@ -83,24 +83,7 @@ export class Controller extends LocalStorage{
         div.append(input1);
         
         return div; //returns <div> element
-    }
-    get speedDiv(){
-        var div = document.createElement('div'); //container
-
-        var a = document.createElement('a'); //create text
-        a.innerText = 'Game Speed';
-        div.append(a);
-
-        var input1 = document.createElement('input'); //create inputfeild
-        input1.type = 'number'; //type number (1234...)
-        const event = new CustomEvent('speed', { detail: {speed:()=>input1.value} });
-        input1.addEventListener('input',()=>{ //after input feild is edited
-            window.dispatchEvent(event); //dispatch event to update game speed
-        })
-        div.append(input1);
-
-        return div; //returns <div> element
-    }    
+    } 
 }
 
 export default Controller;
