@@ -341,7 +341,7 @@ document.querySelector('.sidebar-content').appendChild(clearButton);
     document.getElementById('controls').style.display = 'none';
 
     const timeScore = document.getElementById("score");
-    timeScore.style.display = "none";
+
 
     // Check if leaderboard section already exists
     let leaderboardSection = document.getElementById('leaderboardSection');
