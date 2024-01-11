@@ -53,47 +53,6 @@ permalink: /mariogame
     from {opacity: 0}
     to {opacity: 1}
   }
-  .flashing-message {
-    display: none;
-    color: red;
-    font-size: 18px;
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: flash 1s infinite alternate;
-  }  
-  @keyframes flash {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-  }  
-   /* Add a fade-in effect to the alphabetical filters */
-  #filterButtonsContainer {
-      animation: fadein 0.5s ease-in-out;
-      display: none;
-  }
-
-  @keyframes fadein {
-      from {
-          opacity: 0;
-      }
-      to {
-          opacity: 1;
-      }
-  }
-
-  /* Add a hover effect to the filter buttons */
-  #sortLowToHigh:hover,
-  #sortHighToLow:hover,
-  #sortAlphabetical:hover,
-  #sortNewestToOldest:hover {
-      background-color: #ddd; /* Change the background color on hover */
-      cursor: pointer; /* Change the cursor to a pointer on hover */
-  }
 </style>
 
 <!-- Sidebar -->
@@ -131,15 +90,9 @@ permalink: /mariogame
         <button id="restartGame">Restart</button>
     </div>
 </div>
-<div id="score-container" style="position: absolute; top: 75px; left: 10px; color: black; font-size: 20px; background-color: #dddddd; padding-left: 5px; padding-right: 5px;">
-    <div>
-        Time: <span id="timeScore">0</span>
-    </div>
-    <div>
-        Coin Score: <span id="CoinScoreValue">0</span>
-    </div>
+<div id="score" style= "position: absolute; top: 75px; left: 10px; color: black; font-size: 20px; background-color: #dddddd; padding-left: 5px; padding-right: 5px;">
+    Time: <span id="timeScore">0</span>
 </div>
-
 
 <script type="module">
     // Imports
@@ -222,8 +175,6 @@ permalink: /mariogame
     }
   }
 };
-
-
 // Sort scores from lowest to highest
 function sortScoresLowToHigh() {
   const leaderboardSection = document.getElementById('leaderboardSection');
@@ -292,14 +243,10 @@ function sortScoresNewestToOldest() {
   scores.forEach(score => leaderboardSection.appendChild(score));
 }
 
-// Clear players and scores function (already present in the code)
 function clearPlayersAndScores() {
   // Clear player scores from local storage
   localStorage.removeItem('playerScores');
   
-  // Clear coin score from local storage
-  localStorage.removeItem('coinScore');
-
   // Optionally, you might want to reset other relevant data if needed
   
   // Provide feedback to the user that data has been cleared
