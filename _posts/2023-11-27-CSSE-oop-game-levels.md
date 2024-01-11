@@ -131,9 +131,15 @@ permalink: /mariogame
         <button id="restartGame">Restart</button>
     </div>
 </div>
-<div id="score" style= "position: absolute; top: 75px; left: 10px; color: black; font-size: 20px; background-color: #dddddd; padding-left: 5px; padding-right: 5px;">
-    Time: <span id="timeScore">0</span>
+<div id="score-container" style="position: absolute; top: 75px; left: 10px; color: black; font-size: 20px; background-color: #dddddd; padding-left: 5px; padding-right: 5px;">
+    <div>
+        Time: <span id="timeScore">0</span>
+    </div>
+    <div>
+        Coin Score: <span id="CoinScoreValue">0</span>
+    </div>
 </div>
+
 
 <script type="module">
     // Imports
@@ -216,6 +222,25 @@ permalink: /mariogame
     }
   }
 };
+
+// Function to update the Coin Score in local storage
+function updateCoinScore() {
+  let coinScore = localStorage.getItem("coinScore") || 0;
+  coinScore = parseInt(coinScore) + 1;
+  localStorage.setItem("coinScore", coinScore);
+  return coinScore;
+}
+
+// Function to get and display the current Coin Score
+function displayCoinScore() {
+  const coinScoreValue = document.getElementById("CoinScoreValue");
+  const coinScore = updateCoinScore();
+  coinScoreValue.textContent = coinScore;
+}
+
+// Add event listener to call displayCoinScore on page load
+window.addEventListener("load", displayCoinScore);
+
 // Sort scores from lowest to highest
 function sortScoresLowToHigh() {
   const leaderboardSection = document.getElementById('leaderboardSection');
@@ -284,10 +309,14 @@ function sortScoresNewestToOldest() {
   scores.forEach(score => leaderboardSection.appendChild(score));
 }
 
+// Clear players and scores function (already present in the code)
 function clearPlayersAndScores() {
   // Clear player scores from local storage
   localStorage.removeItem('playerScores');
   
+  // Clear coin score from local storage
+  localStorage.removeItem('coinScore');
+
   // Optionally, you might want to reset other relevant data if needed
   
   // Provide feedback to the user that data has been cleared
