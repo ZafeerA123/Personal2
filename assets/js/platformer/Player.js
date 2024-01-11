@@ -268,13 +268,15 @@ if (Math.abs(this.currentSpeed) >= runningSpeedThreshold) {
             // Collision with the left side of the Tub
             if (this.collisionData.touchPoints.coin.left) {
                 this.touchCoin = true;
-                console.log("o")
+                console.log("Coin touch left");
+                alert("You scored a point!");
                 window.location.reload();
             }
             // Collision with the right side of the Tube
             if (this.collisionData.touchPoints.coin.right) {
-                console.log("p")
                 this.touchCoin = true;
+                console.log("Coin touch left");
+                alert("You scored a point!");
                 window.location.reload();
             }
         };
