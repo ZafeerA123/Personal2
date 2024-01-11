@@ -53,6 +53,47 @@ permalink: /mariogame
     from {opacity: 0}
     to {opacity: 1}
   }
+  .flashing-message {
+    display: none;
+    color: red;
+    font-size: 18px;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: flash 1s infinite alternate;
+  }  
+  @keyframes flash {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+  }  
+   /* Add a fade-in effect to the alphabetical filters */
+  #filterButtonsContainer {
+      animation: fadein 0.5s ease-in-out;
+      display: none;
+  }
+
+  @keyframes fadein {
+      from {
+          opacity: 0;
+      }
+      to {
+          opacity: 1;
+      }
+  }
+
+  /* Add a hover effect to the filter buttons */
+  #sortLowToHigh:hover,
+  #sortHighToLow:hover,
+  #sortAlphabetical:hover,
+  #sortNewestToOldest:hover {
+      background-color: #ddd; /* Change the background color on hover */
+      cursor: pointer; /* Change the cursor to a pointer on hover */
+  }
 </style>
 
 <!-- Sidebar -->
@@ -131,6 +172,7 @@ permalink: /mariogame
   },
   players: {
     mario: {
+      type: 0,
       src: "/images/platformer/sprites/mario.png",
       width: 256,
       height: 256,
@@ -142,9 +184,22 @@ permalink: /mariogame
       d: { row: 2, frames: 7, idleFrame: { column: 7, frames: 0 } }
     },
     monkey: {
-      src: "/images/platformer/sprites/lopezanimation.png",
-      width: 46,
-      height: 52.5,
+      type: 0,
+      src: "/images/platformer/sprites/monkey.png",
+      width: 40,
+      height: 40,
+      w: { row: 9, frames: 15 },
+      wa: { row: 9, frames: 15 },
+      wd: { row: 9, frames: 15 },
+      a: { row: 1, frames: 15, idleFrame: { column: 7, frames: 0 } },
+      s: { row: 12, frames: 15 },
+      d: { row: 0, frames: 15, idleFrame: { column: 7, frames: 0 } }
+    },
+    lopez: {
+          type: 1,
+          src: "/images/platformer/sprites/lopezanimation.png", // Modify this to match your file path
+          width: 46,
+          height: 52.5,
           idle: { row: 6, frames: 1, idleFrame: {column: 1, frames: 0} },
           a: { row: 1, frames: 4, idleFrame: { column: 1, frames: 0 } }, // Right Movement
           d: { row: 2, frames: 4, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
@@ -470,6 +525,17 @@ document.getElementById('leaderboardButton').addEventListener('click', showLeade
       platform: assets.platforms.alien, 
       player: assets.players.monkey, 
       callback: testerCallBack 
+    });
+    new GameLevel( {tag: "lopez", 
+      background: assets.backgrounds.hills,
+      background2: assets.backgrounds.mountains,
+      platform: assets.platforms.grass, 
+      platformO: assets.platformO.grass, 
+      player: assets.players.lopez, 
+      enemy: assets.enemies.goomba, 
+      tube: assets.obstacles.tube, 
+      callback: testerCallBack, 
+      thing: assets.thing.coin, 
     });
     // Game Over screen
     new GameLevel( {tag: "end", 

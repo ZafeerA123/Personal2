@@ -5,6 +5,12 @@ export class Controller extends LocalStorage{
     constructor(){
         var keys = {currentLevel:"currentLevel",gameSpeed:"gameSpeed"}; //default keys for localStorage
         super(keys); //creates this.keys
+
+        // Create a flashing message element
+        this.flashingMessage = document.createElement("div");
+        this.flashingMessage.className = "flashing-message";
+        this.flashingMessage.innerText = "Don't Skip to End";
+        document.body.appendChild(this.flashingMessage);
     }
     //separated from constructor so that class can be created before levels are added
     initialize(){
@@ -30,6 +36,12 @@ export class Controller extends LocalStorage{
             GameEnv.gameSpeed = this[this.keys.gameSpeed]; //reload or change levels to see effect
             this.save(this.keys.gameSpeed); //save to local storage
         })
+       // Add an event listener to show/hide the flashing message when the settings bar is opened/closed
+       window.addEventListener("resize", () => {
+        this[this.keys.currentLevel] = GameEnv.levels.indexOf(GameEnv.currentLevel);
+        this.save(this.keys.currentLevel); //save to local storage
+        this.toggleFlashingMessage(); // Toggle flashing message
+    });
     }
     get levelTable(){
         var t = document.createElement("table");
@@ -71,6 +83,15 @@ export class Controller extends LocalStorage{
         })
         div.append(input1);
         return div; //returns <div> element
+    }
+    toggleFlashingMessage() {
+        // Toggle the visibility of the flashing message
+        this.flashingMessage.style.display = "block";
+        
+        // Set a timeout to hide the flashing message after a short delay
+        setTimeout(() => {
+            this.flashingMessage.style.display = "none";
+        }, 20000); // Adjust the delay as needed
     }
 }
 export default Controller;
