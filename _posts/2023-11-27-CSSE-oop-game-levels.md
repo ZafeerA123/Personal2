@@ -343,20 +343,6 @@ document.querySelector('.sidebar-content').appendChild(clearButton);
     const timeScore = document.getElementById("score");
     timeScore.style.display = "none";
 
-     // Retrieve player scores and update the leaderboard
-     const playerScores = localStorage.getItem("playerScores");
-     console.log("playerScores:", playerScores); // Check the retrieved playerScores
-
-    // Append updated scores to the leaderboard section
-    for (let i = 0; i < finalScoresArr.length; i++) {
-      const rank = document.createElement('div');
-      rank.id = `rankScore${i + 1}`;
-      rank.innerHTML = `<h2 style="text-align: center; font-size: 18px;">${finalScoresArr[i]} </h2>`;
-      console.log(`Rank ${i + 1} Content:`, finalScoresArr[i]); // Check the content being added
-      leaderboardSection.appendChild(rank);
-    }
-
-
     // Check if leaderboard section already exists
     let leaderboardSection = document.getElementById('leaderboardSection');
     if (!leaderboardSection) {
@@ -369,6 +355,10 @@ document.querySelector('.sidebar-content').appendChild(clearButton);
         // Clear existing leaderboard contents
         leaderboardSection.innerHTML = '<h1 style="text-align: center; font-size: 18px;">Leaderboard </h1>';
     }
+
+    // Retrieve player scores and update the leaderboard
+    const playerScores = localStorage.getItem("playerScores");
+    console.log("playerScores:", playerScores); // Check the retrieved playerScores
 
   // Retrieve player scores and update the leaderboard
   const playerScores = localStorage.getItem("playerScores");
@@ -398,6 +388,7 @@ document.querySelector('.sidebar-content').appendChild(clearButton);
       const rank = document.createElement('div');
       rank.id = `rankScore${i + 1}`;
       rank.innerHTML = `<h2 style="text-align: center; font-size: 18px;">${finalScoresArr[i]} </h2>`;
+      console.log(`Rank ${i + 1} Content:`, finalScoresArr[i]); // Check the content being added
       leaderboardSection.appendChild(rank);
   }
 
