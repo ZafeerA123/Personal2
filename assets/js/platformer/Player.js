@@ -269,14 +269,26 @@ if (Math.abs(this.currentSpeed) >= runningSpeedThreshold) {
             if (this.collisionData.touchPoints.coin.left) {
                 this.touchCoin = true;
                 console.log("Coin touch left");
-                alert("You scored a point!");
+                // Get the alerted value from localStorage, or an empty string if it doesn't exist
+                var alerted = localStorage.getItem('alerted') || '';
+                //If the altered value is not 'yes', show the alert and set the alerted value to 'yes'
+                if (alerted != 'yes') {
+                    alert("You scored a point!");
+                    localStorage.setItem('alerted', 'yes');
+                }
                 window.location.reload();
-            }
+            }                       
             // Collision with the right side of the Tube
             if (this.collisionData.touchPoints.coin.right) {
                 this.touchCoin = true;
-                console.log("Coin touch left");
-                alert("You scored a point!");
+                console.log("Coin touch right");
+                 // Get the alerted value from localStorage, or an empty string if it doesn't exist
+                var alerted = localStorage.getItem('alerted') || '';
+                //If the altered value is not 'yes', show the alert and set the alerted value to 'yes'
+                if (alerted != 'yes') {
+                    alert("You scored a point!");
+                    localStorage.setItem('alerted', 'yes');
+                }
                 window.location.reload();
             }
         };
