@@ -420,7 +420,6 @@ document.querySelector('.sidebar-content').appendChild(clearButton);
     filterButtonsContainer.innerHTML = `
       <button id="sortLowToHigh">Sort Low to High</button>
       <button id="sortHighToLow">Sort High to Low</button>
-      <button id="sortAlphabetical">Sort Alphabetical</button>
       <button id="sortNewestToOldest">Sort Newest to Oldest</button>
     `;
     document.querySelector(".page-content").appendChild(filterButtonsContainer);
