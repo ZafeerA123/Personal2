@@ -45,17 +45,6 @@ export class Controller extends LocalStorage{
     }
     get levelTable(){
         var t = document.createElement("table");
-
-    
-        
-          
-    
-
-        
-        Expand All
-    
-    @@ -54,6 +49,7 @@ export class Controller extends LocalStorage{
-  
         //create header
         var header = document.createElement("tr");
         var th1 = document.createElement("th");
@@ -68,17 +57,6 @@ export class Controller extends LocalStorage{
         //create other rows
         for(let i = 0;i < GameEnv.levels.length;i++){
             var row = document.createElement("tr");
-
-    
-        
-          
-    
-
-        
-        Expand All
-    
-    @@ -68,35 +64,26 @@ export class Controller extends LocalStorage{
-  
             var td1 = document.createElement("td");
             td1.innerText = String(i);
             row.append(td1);
@@ -109,7 +87,7 @@ export class Controller extends LocalStorage{
     toggleFlashingMessage() {
         // Toggle the visibility of the flashing message
         this.flashingMessage.style.display = "block";
-
+        
         // Set a timeout to hide the flashing message after a short delay
         setTimeout(() => {
             this.flashingMessage.style.display = "none";
