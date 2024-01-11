@@ -3,7 +3,7 @@ import Character from './Character.js';
 import deathController from './Death.js';
 export class Player extends Character{
     // constructors sets up Character object 
-    constructor(canvas, image, speedRatio, playerData, speedLimit){
+    constructor(canvas, image, speedRatio, playerData){
         super(canvas, 
             image, 
             speedRatio,
@@ -27,11 +27,6 @@ export class Player extends Character{
         document.addEventListener('keydown', this.keydownListener);
         document.addEventListener('keyup', this.keyupListener);
 
-        // Additional Property for Speed Limit
-        this.speedLimit = speedLimit;
-        this.currentSpeed = 0;
-        this.acceleration = 0.11; // Adjust based on preference
-        this.deceleration = 0.1; // Adjust based on preference 
         this.jumpMod = 1;
         GameEnv.player = this;
     }
@@ -103,82 +98,35 @@ export class Player extends Character{
     
         return result;
     }
-    
+
     dashTimer;
     cooldownTimer;
+    
 
     // Player updates
     update() {
-        // Adjust speed based on pressed keys
-    if (this.pressedKeys['a'] && this.movement.left) {
-        this.currentSpeed -= this.acceleration;
-        this.facingLeft = true;
-    } else if (this.pressedKeys['d'] && this.movement.right) {
-        this.currentSpeed += this.acceleration;
-        this.facingLeft = false;
-    } else {
-        // Decelerate when no movement keys are pressed
-        this.currentSpeed *= (1 - this.deceleration);
-    }
-    if (this.isAnimation("s")) {
-        if (this.movement) {  // Check if movement is allowed
-            if(this.dashTimer) {
-                const moveSpeed = this.speed * 2;
-                this.x += this.facingLeft ? -moveSpeed : moveSpeed;
-            };
+        if (this.isAnimation("a") && (this.x > 0)) {
+            if (this.movement.left) this.x -= this.speed;  // Move to left
+            this.facingLeft = true;
         }
-    }
-
-    if (this.isGravityAnimation("w")) {
-        console.log(this.topOfPlatform)
-        if (this.movement.down || this.topOfPlatform) this.y -= (this.bottom * (.50 * this.jumpMod));  // jump 22% higher than bottom
-        this.gravityEnabled = true;
-    }
-
-     // Apply speed limit
-    if (Math.abs(this.currentSpeed) > this.speedLimit) {
-        this.currentSpeed = this.currentSpeed > 0 ? this.speedLimit : -this.speedLimit;
-    }
-
-    // Update player position based on speed
-    this.x += this.currentSpeed;
-
-    // Check for speed threshold to change sprite sheet rows
-    const walkingSpeedThreshold = 1; // Walking speed threshold
-    const runningSpeedThreshold = 5; // Running speed threshold
-
-    // Change sprite sheet row for running
-if (Math.abs(this.currentSpeed) >= runningSpeedThreshold) {
-    if (this.playerData.runningRight && this.playerData.runningRight.row !== undefined) {
-        if (this.currentSpeed > 0) {
-            this.setFrameY(this.playerData.runningRight.row);
+        if (this.isAnimation("d")) {
+            if (this.movement.right) this.x += this.speed;  // Move to right
+            this.facingLeft = false;
         }
-    }
+        if (this.isGravityAnimation("w")) {
+            console.log(this.topOfPlatform)
+            if (this.movement.down || this.topOfPlatform) this.y -= (this.bottom * (.50 * this.jumpMod));  // jump 22% higher than bottom
+            this.gravityEnabled = true;
+        }
+        if (this.isAnimation("s")) {
+            if (this.movement) {  // Check if movement is allowed
+                if(this.dashTimer) {
+                    const moveSpeed = this.speed * 2;
+                    this.x += this.facingLeft ? -moveSpeed : moveSpeed;
+                };
+            }
+        }
 
-    if (this.playerData.runningLeft && this.playerData.runningLeft.row !== undefined) {
-        if (this.currentSpeed <= 0) {
-            this.setFrameY(this.playerData.runningLeft.row);
-        }
-    }
-} else if (Math.abs(this.currentSpeed) >= walkingSpeedThreshold) {
-    // Change sprite sheet row for walking
-    if (this.playerData.d && this.playerData.d.row !== undefined) {
-        if (this.currentSpeed > 0) {
-            this.setFrameY(this.playerData.d.row);
-        }
-    }
-
-    if (this.playerData.a && this.playerData.a.row !== undefined) {
-        if (this.currentSpeed <= 0) {
-            this.setFrameY(this.playerData.a.row);
-        }
-    }
-} else {
-    // Revert to normal animation if speed is below the walking threshold
-    if (this.playerData.idle && this.playerData.idle.row !== undefined) {
-        this.setFrameY(this.playerData.idle.row);
-    }
-}
         // Perform super update actions
         super.update();
     }
@@ -264,6 +212,7 @@ if (Math.abs(this.currentSpeed) >= runningSpeedThreshold) {
                 this.y -= jumpHeight; // Move the player up by jumpHeight
             }
         };
+        
         if (this.collisionData.touchPoints.other.id === "thing2") {
             // Collision with the left side of the Tub
             if (this.collisionData.touchPoints.coin.left) {
@@ -321,7 +270,6 @@ handleKeyDown(event) {
             // Stop the player's running functions
             clearTimeout(this.dashTimer);
             this.dashTimer = null;
-
             // Start cooldown timer
             this.cooldownTimer = setTimeout(() => {
                 clearTimeout(this.cooldownTimer);
@@ -351,9 +299,9 @@ handleKeyUp(event) {
         this.isIdle = true;     
     }
     if (event.key === "s") {
-            this.canvas.style.filter = 'invert(0)'; //revert to default coloring
-            this.jumpMod = 1;
-    }
+        this.canvas.style.filter = 'invert(0)'; //revert to default coloring
+        this.jumpMod = 1;
+}
 }
 
     // Override destroy() method from GameObject to remove event listeners
