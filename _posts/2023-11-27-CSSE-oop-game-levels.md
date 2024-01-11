@@ -356,10 +356,6 @@ document.querySelector('.sidebar-content').appendChild(clearButton);
         leaderboardSection.innerHTML = '<h1 style="text-align: center; font-size: 18px;">Leaderboard </h1>';
     }
 
-    // Retrieve player scores and update the leaderboard
-    const playerScores = localStorage.getItem("playerScores");
-    console.log("playerScores:", playerScores); // Check the retrieved playerScores
-
   // Retrieve player scores and update the leaderboard
   const playerScores = localStorage.getItem("playerScores");
   const playerScoresArray = playerScores.split(";");
@@ -388,7 +384,6 @@ document.querySelector('.sidebar-content').appendChild(clearButton);
       const rank = document.createElement('div');
       rank.id = `rankScore${i + 1}`;
       rank.innerHTML = `<h2 style="text-align: center; font-size: 18px;">${finalScoresArr[i]} </h2>`;
-      console.log(`Rank ${i + 1} Content:`, finalScoresArr[i]); // Check the content being added
       leaderboardSection.appendChild(rank);
   }
 
