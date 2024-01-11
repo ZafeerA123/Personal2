@@ -223,23 +223,6 @@ permalink: /mariogame
   }
 };
 
-// Function to update the Coin Score in local storage
-function updateCoinScore() {
-  let coinScore = localStorage.getItem("coinScore") || 0;
-  coinScore = parseInt(coinScore) + 1;
-  localStorage.setItem("coinScore", coinScore);
-  return coinScore;
-}
-
-// Function to get and display the current Coin Score
-function displayCoinScore() {
-  const coinScoreValue = document.getElementById("CoinScoreValue");
-  const coinScore = updateCoinScore();
-  coinScoreValue.textContent = coinScore;
-}
-
-// Add event listener to call displayCoinScore on page load
-window.addEventListener("load", displayCoinScore);
 
 // Sort scores from lowest to highest
 function sortScoresLowToHigh() {
