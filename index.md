@@ -1,8 +1,12 @@
 ---
-layout: home
+layout: base
 search_exclude: true
 image: /images/mario_animation.png
 ---
+
+## Personal Repo Tri2
+Zafeer Ahmed
+
 {% include nav_front.html %}
 
 {% assign sprite_file = site.baseurl | append: page.image %}  <!--- Liquid concatentation --->
@@ -180,5 +184,3 @@ image: /images/mario_animation.png
 
 </script>
 
-## Personal Repo Tri2
-Zafeer Ahmed
