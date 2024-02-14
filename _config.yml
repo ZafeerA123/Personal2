@@ -1,4 +1,4 @@
-title: Final Blog
+title: Final Blog 
 description: "Collection of achievements and learnigns from 2 Trimesters in CSSE"
 owner_name: Zafeer Ahmed
 github_username: ZafeerA123
@@ -16,3 +16,5 @@ minima:
 plugins:
 - jekyll-remote-theme
 future: true
+
+
