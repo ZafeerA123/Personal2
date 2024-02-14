@@ -1,13 +1,13 @@
-title: Team Project
-description: "A personal Repo for Tri2"
+title: Final Blog
+description: "Collection of achievements and learnigns from 2 Trimesters in CSSE"
 owner_name: Zafeer Ahmed
 github_username: ZafeerA123
-github_repo: "Personal2"
-baseurl: "/Personal2"
+github_repo: "PersonalBlog"
+baseurl: "/PersonalBlog"
 remote_theme: jekyll/minima
 minima:
   social_links:
-    - { platform: github, user_url: "https://github.com/ZafeerA123/Personal2"}
+    - { platform: github, user_url: "https://github.com/ZafeerA123/PersonalBlog"}
 # remote_theme: pages-themes/dinky@v0.2.0
 # remote_theme: pages-themes/minimal@v0.2.0
 # remote_theme: pages-themes/hacker@v0.2.0

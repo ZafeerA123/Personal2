@@ -4,8 +4,7 @@ search_exclude: true
 image: /images/mario_animation.png
 ---
 
-## Personal Repo Tri2
-Zafeer Ahmed
+This is a collection of all my final projects, and learnings for past 6 months. 
 
 {% include nav_front.html %}
 
