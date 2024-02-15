@@ -1,12 +1,12 @@
 ---
-comments: False
+toc: false
+comments: false
 layout: post
-title: Game
-description: Putting Everything Together
-type: plans
-courses: {'compsci': {'week': 7}}
-categories: ['C4.1']
-permalink: /game2
+title: Tri 1 Final Game
+description: A pretty advanced use of JavaScript building classic snake game using menu controls, key events, snake simulation and timers.
+type: tangibles
+courses: { compsci: {week: 2} }
+permalink: /game
 ---
 
 <style>
@@ -21,8 +21,8 @@ permalink: /game2
         background-color:white;
     }
 </style>
-<audio id="audio" src="/Personal2/audio/2023-10-23-Menu_Theme.mp3" preload="auto"></audio>
-<audio id="audio2" src="/Personal2/audio/box.wav" preload="auto"></audio>
+<audio id="audio" src="/Personal2/audio1/2023-10-23-Menu_Theme.mp3" preload="auto"></audio>
+<audio id="audio2" src="/Personal2/audio1/box.wav" preload="auto"></audio>
 
 <button id="start">start</button>
 <canvas id="mainDisplay" class="container" height="500px" width="500px"></canvas>
@@ -43,7 +43,7 @@ permalink: /game2
 <div></div>
 <canvas id="subDisplay1g" class="container2" height="500px" width="500px"></canvas>
 
-<audio id="mainAudio" src="/Personal2/audio/MainRoomAmbience.mp3" preload="auto"></audio>
+<audio id="mainAudio" src="/Personal2/audio1/MainRoomAmbience.mp3" preload="auto"></audio>
 
 <script type="module">
 //import needed modules

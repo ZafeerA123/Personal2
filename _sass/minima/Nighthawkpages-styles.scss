@@ -24,7 +24,7 @@ color: light-grey;
 .page-content {
   -webkit-font-smoothing: antialiased !important;
   text-rendering: optimizeLegibility !important;
-  font-family: "Georgia" !important;
+  font-family: "Segoe UI", SegoeUI, Roboto, "Segoe WP", "Helvetica Neue", "Helvetica", "Tahoma", "Arial", sans-serif !important;
 }
 
 // make non-headings slightly lighter
@@ -208,8 +208,8 @@ text-align: center! important;
 
 // customize scrollbars
 ::-webkit-scrollbar {
-width: 7px;
-height: 14px;
+width: 14px;
+height: 18px;
 }
 ::-webkit-scrollbar-thumb {
 height: 6px;
