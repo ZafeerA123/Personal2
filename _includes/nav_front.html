@@ -1,13 +1,15 @@
 <style>
     .image-container {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-around;
         margin-bottom: 20px;
     }
 
     .image-container a {
         text-align: center;
-        width: 30%; /* Set the width to 30% for each image to have 3 in a row */
+        width: 30%; /* Adjust width as per your preference */
+        margin: 10px; /* Add some margin for spacing between images */
         border: 2px solid black; /* Add a black border */
         border-radius: 15px; /* Add curved borders */
         overflow: hidden; /* Ensure curved corners are visible */
@@ -26,16 +28,16 @@
         <td><a href="{{site.baseurl}}/2024/01/08/CSSE-oop-game-levels2.html">Tri2 Final Game</a></td>
         <td><a href="https://ryann96.github.io/Team-Project/mariogame">Tri2 Group Game</a></td>
         <td><a href="{{site.baseurl}}/GuessNumber">Guess The Number</a></td>
-        <td><a href="{{site.baseurl}}/GradeCalculator">Grade Calculator</a></td>
+        <td><a href="{{site.baseurl}}/GradeCalculator"> Grade Calculator</a></td>
         <td><a href="{{site.baseurl}}/reflection">Reflection</a></td>
         <td><a href="{{site.baseurl}}/resources">Resources</a></td>
         <td><a href="{{site.baseurl}}/KCaPR">Key Commits and Pull Requests</a></td>
     </tr>
 </table>
 
-<div class="image-container">
+<div style="align-items: center; display: flex; flex-direction: column;">
     <a href="{{site.baseurl}}/">
-        <img src="{{site.baseurl}}/images/globe.gif" height="150" title="Globe [:" alt="">
+        <img src="{{site.baseurl}}/images/globe.gif" height="150" title="Globe [:" alt="" style="margin-top: -144px; margin-left: 880px;">
     </a>
 </div>
 
@@ -58,9 +60,6 @@
             <img src="{{site.baseurl}}/images/Tri2Fgame.png" alt="tri2game">
         </a>
     </div>
-</div>
-
-<div class="image-container">
     <div>
         <h1>Tri 2 Group Game</h1>
         <a href="https://ryann96.github.io/Team-Project/mariogame">
