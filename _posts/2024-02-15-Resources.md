@@ -10,4 +10,4 @@ permalink: /resources
 hide: true
 ---
 
-## [https://zafeera123.github.io/ZafeerA123/compsci](Accomplishments & Resources Tri 1)
+## [Accomplishments & Resources for Tri 1](https://zafeera123.github.io/ZafeerA123/compsci)
