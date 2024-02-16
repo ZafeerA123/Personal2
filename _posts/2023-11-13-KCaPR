@@ -1,0 +1,27 @@
+---
+toc: false
+comments: false
+layout: post
+title: Key commits and Pull requests
+description: All of my key commits and pull requests for our class game, and what I contributed to it
+type: ccc
+courses: { csse: {week: 2} }
+permalink: /KCaPR
+---
+
+## Key Commits
+Added Jump Sound Effects: [https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/56edd0ba49bbc011217dd1ce460cf4b450d8c547](https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/56edd0ba49bbc011217dd1ce460cf4b450d8c547)
+Added Death Sound Effects: [https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/56edd0ba49bbc011217dd1ce460cf4b450d8c547](https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/56edd0ba49bbc011217dd1ce460cf4b450d8c547)
+Added Goomba Death Animation using CSS: [https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/56edd0ba49bbc011217dd1ce460cf4b450d8c547](https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/56edd0ba49bbc011217dd1ce460cf4b450d8c547)
+Added Code (GameEnv.invincible) to make death Animation less glitchy: [https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/07948824c2df2c9dcca9289829adb221e9788bfe](https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/07948824c2df2c9dcca9289829adb221e9788bfe)
+Added Mushrom & Mushroom Sound Effect: [https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/07948824c2df2c9dcca9289829adb221e9788bfe](https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/07948824c2df2c9dcca9289829adb221e9788bfe) 
+Added code to Mushroom (changed intiatl position, Mushroom doesn't kill you, you can jump on mushroom -> (Attempted to add Mushrooom increase speed/make messages appear using Console.logs (WIP) ): [https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/07948824c2df2c9dcca9289829adb221e9788bfe](https://github.com/MaryamAbdul-Aziz/game_levels_mp/commit/07948824c2df2c9dcca9289829adb221e9788bfe)
+
+## Key Pull Requests
+[https://github.com/nighthawkcoders/game_levels_mp/pull/139](https://github.com/nighthawkcoders/game_levels_mp/pull/139)
+[https://github.com/nighthawkcoders/game_levels_mp/pull/127](https://github.com/nighthawkcoders/game_levels_mp/pull/127)
+[https://github.com/nighthawkcoders/game_levels_mp/pull/96](https://github.com/nighthawkcoders/game_levels_mp/pull/96)
+[https://github.com/nighthawkcoders/game_levels_mp/pull/51](https://github.com/nighthawkcoders/game_levels_mp/pull/51)
+[https://github.com/nighthawkcoders/game_levels_mp/pull/49](https://github.com/nighthawkcoders/game_levels_mp/pull/49)
+Team Test Pull Request: [https://github.com/nighthawkcoders/game_levels_mp/pull/11](https://github.com/nighthawkcoders/game_levels_mp/pull/11) 
+
