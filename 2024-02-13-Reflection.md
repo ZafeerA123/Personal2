@@ -22,5 +22,8 @@ As seen through when we got 2 more tablemates, with Trystan and Sean, we all wor
 ## Tri 2 (Progression into working with other people)
 Trimester 2 proggesivley added more and more people we had to work with, from just 1 to over 21 people. From our lessons we made to teach others how our items worked, to making pull requests in order to merge our thinkings into one file, this Trimester has been my favorite from everything we have done as a class, to make a game that has been certainly a class contributed class. 
 
+## What I learned
+Overall during this class I have learned many things. I have learned how to navigate and use Vscode, and Github Pages affectivley. I have learned how to look at a Javascript code and understand to a point where I can tell whats going on. I have learned how Object Oriented Programming is a lot more effective when creating games. I learned how to work with others, and work together rather than independently when creating stuff. Coding wise, I learned how to use console.logs and GameEnv effectivley, to create if statements to write code. 
+
 ## Final thoughts
 Overall, Im very glad I took this class. It not only thought me how to code, by aking you understand the code and how the code worked together by making your own changes to it, but the collobaration skills it has thought me in order to collobarate with others in order to create an amazing class game. It has been a really fun time, and I really enjoyed the people I have worked with as well. It has thought me how to be a true engineer, and I really apreciate that. 
