@@ -212,32 +212,17 @@ export class Player extends Character{
                 this.y -= jumpHeight; // Move the player up by jumpHeight
             }
         };
-        
         if (this.collisionData.touchPoints.other.id === "thing2") {
             // Collision with the left side of the Tub
             if (this.collisionData.touchPoints.coin.left) {
                 this.touchCoin = true;
-                console.log("Coin touch left");
-                // Get the alerted value from localStorage, or an empty string if it doesn't exist
-                var alerted = localStorage.getItem('alerted') || '';
-                //If the altered value is not 'yes', show the alert and set the alerted value to 'yes'
-                if (alerted != 'yes') {
-                    alert("You scored a point!");
-                    localStorage.setItem('alerted', 'yes');
-                }
+                console.log("o")
                 window.location.reload();
-            }                       
+            }
             // Collision with the right side of the Tube
             if (this.collisionData.touchPoints.coin.right) {
+                console.log("p")
                 this.touchCoin = true;
-                console.log("Coin touch right");
-                 // Get the alerted value from localStorage, or an empty string if it doesn't exist
-                var alerted = localStorage.getItem('alerted') || '';
-                //If the altered value is not 'yes', show the alert and set the alerted value to 'yes'
-                if (alerted != 'yes') {
-                    alert("You scored a point!");
-                    localStorage.setItem('alerted', 'yes');
-                }
                 window.location.reload();
             }
         };

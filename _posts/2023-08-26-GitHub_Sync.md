@@ -1,7 +1,7 @@
 ---
 toc: true
 comments: false
-hide: true
+hide: false
 layout: post
 type: help
 title: GitHub Overview

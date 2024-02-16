@@ -1,6 +1,6 @@
 ---
 toc: false
-hide: true
+hide: false
 layout: post
 title: Platform Game
 description: Game in development

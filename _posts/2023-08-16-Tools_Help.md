@@ -1,7 +1,7 @@
 ---
 toc: false
 comments: false
-hide: true
+hide: false
 layout: post
 type: help
 title: Tool References
