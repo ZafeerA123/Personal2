@@ -3,7 +3,7 @@ toc: false
 comments: false
 layout: post
 title: Guess the number
-description: game I made using Web Programming basics
+description: Can you guess the number?
 type: ccc
 courses: { csse: {week: 2} }
 permalink: /GuessNumber
