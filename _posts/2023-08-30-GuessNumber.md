@@ -3,7 +3,7 @@ toc: false
 comments: false
 layout: post
 title: Guess the number
-description: game I made using Chatgpt & WPB
+description: game I made using Web Programming basics
 type: ccc
 courses: { csse: {week: 2} }
 permalink: /GuessNumber
@@ -52,5 +52,4 @@ permalink: /GuessNumber
 </body>
 </html>
 
-## Explanation for code 
-https://chat.openai.com/share/d9046f0c-653f-4b2d-b321-044b15463d65
+
