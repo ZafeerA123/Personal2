@@ -16,6 +16,7 @@ import Goomba from './Goomba.js';
 import FlyingGoomba from './FlyingGoomba.js';
 import BlockPlatform from './BlockPlatform.js';
 import Mushroom from './Mushroom.js';
+import Inventory from './Inventory.js';
 import Coin from './Coin.js';
 
 
@@ -167,6 +168,13 @@ const GameSetup = {
     */
 
     assets: {
+      //list: {
+        //inventory: { src: "/images/platformer2/sprites/inventory.png" },
+        //m: { row: 10, frames: 15 },
+        //r: { row: 10, frames: 12},
+        //u: { row: 10, frames: 10},
+        //y: { row: 10, frames: 10},
+      //},
       obstacles: {
         tube: { src: "/images/platformer2/obstacles/tube.png" },
         coin: { src: "/images/platformer2/obstacles/coin.png"},
