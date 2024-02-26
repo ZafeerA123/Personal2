@@ -170,6 +170,9 @@ const GameSetup = {
     assets: {
       list: {
         inventory: { src: "/images/platformer2/sprites/inventory.png" },
+        width: 256,
+        height: 256,
+        scaleSize: 80,
         m: { row: 1, frames: 2},
         r: { row: 2, frames: 2},
         u: { row: 3, frames: 2},
