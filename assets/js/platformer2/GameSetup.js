@@ -170,10 +170,10 @@ const GameSetup = {
     assets: {
       list: {
         inventory: { src: "/images/platformer2/sprites/inventory.png" },
-        m: { row: 1},
-        r: { row: 2},
-        u: { row: 3},
-        y: { row: 4},
+        m: { row: 1, frames: 2},
+        r: { row: 2, frames: 2},
+        u: { row: 3, frames: 2},
+        y: { row: 4, frames: 2},
       },
       obstacles: {
         tube: { src: "/images/platformer2/obstacles/tube.png" },
