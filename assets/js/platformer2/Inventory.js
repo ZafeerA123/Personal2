@@ -1,26 +1,22 @@
 import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 import GameControl from './GameControl.js';
-import playJump from './Audio1.js';
-import playPlayerDeath from './Audio2.js';
-import Socket from './Multiplayer.js';
-
+import GameSetup from './GameSetup.js';
 
 /**
  * @class Inventory class
  * @description Inventory.js key objective is to use keys to control different inventory items.  
  * 
  * Animations and events are activated by key presses, collisions, and gravity.
- * keys are used by user to control The inventory object.  
+ * keys are used by the user to control The inventory object.  
  * 
+ * @extends Character
  */
-export class Inventory {
+export class Inventory extends Character {
     constructor(canvas, image, data, widthPercentage = 0.3, heightPercentage = 0.8) {
-        this.canvas = canvas;
-        this.image = image;
+        super(canvas, image, data, widthPercentage, heightPercentage);
+
         this.inventoryData = data;
-        this.widthPercentage = widthPercentage;
-        this.heightPercentage = heightPercentage;
         this.pressedKeys = {};
         this.isIdle = true;
 
@@ -42,7 +38,7 @@ export class Inventory {
             const key = event.key;
             if (!(event.key in this.pressedKeys)) {
                 this.pressedKeys[event.key] = this.inventoryData[key];
-                this.playAnimation(key);
+                this.setAnimation(key);
                 this.isIdle = false;
             }
         }
@@ -54,21 +50,9 @@ export class Inventory {
             if (event.key in this.pressedKeys) {
                 delete this.pressedKeys[event.key];
             }
-            this.playAnimation(key);
+            this.setAnimation(key);
             this.isIdle = true;
         }
-    }
-
-    playAnimation(key) {
-        // Simplified play animation logic, replace with your own
-        var animation = this.inventoryData[key];
-        this.setFrameY(animation.row);
-        this.setMaxFrame(animation.frames);
-        if (this.isIdle && animation.idleFrame) {
-            this.setFrameX(animation.idleFrame.column)
-            this.setMinFrame(animation.idleFrame.frames);
-        }
-        // Add more logic for direction setup or other specific animation details
     }
 
     // Other methods for collision, gravity, update, destroy, etc.
