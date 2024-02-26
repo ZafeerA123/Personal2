@@ -37,6 +37,7 @@ export class Inventory extends Character {
         if (this.inventoryData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (!(event.key in this.pressedKeys)) {
+                // Add your key-specific logic here if needed
                 this.pressedKeys[event.key] = this.inventoryData[key];
                 this.setAnimation(key);
                 this.isIdle = false;
@@ -48,10 +49,23 @@ export class Inventory extends Character {
         if (this.inventoryData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (event.key in this.pressedKeys) {
+                // Add your key-specific logic here if needed
                 delete this.pressedKeys[event.key];
             }
             this.setAnimation(key);
             this.isIdle = true;
+        }
+    }
+
+    setAnimation(key) {
+                // animation comes from playerData
+        var animation = this.inventoryData[key]
+        // set frame and idle frame
+        this.setFrameY(animation.row);
+        this.setMaxFrame(animation.frames);
+        if (this.isIdle && animation.idleFrame) {
+            this.setFrameX(animation.idleFrame.column)
+            this.setMinFrame(animation.idleFrame.frames);
         }
     }
 
