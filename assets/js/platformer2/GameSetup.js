@@ -168,13 +168,13 @@ const GameSetup = {
     */
 
     assets: {
-      //list: {
-        //inventory: { src: "/images/platformer2/sprites/inventory.png" },
-        //m: { row: 10, frames: 15 },
-        //r: { row: 10, frames: 12},
-        //u: { row: 10, frames: 10},
-        //y: { row: 10, frames: 10},
-      //},
+      list: {
+        inventory: { src: "/images/platformer2/sprites/inventory.png" },
+        m: { row: 1},
+        r: { row: 2},
+        u: { row: 3},
+        y: { row: 4},
+      },
       obstacles: {
         tube: { src: "/images/platformer2/obstacles/tube.png" },
         coin: { src: "/images/platformer2/obstacles/coin.png"},
