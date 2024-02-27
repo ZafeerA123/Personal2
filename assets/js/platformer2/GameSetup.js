@@ -167,22 +167,25 @@ const GameSetup = {
      * * * 3rd level: property (src, width, height, scaleSize, speedRatio, w, wa, wd, a, s, d)
     */
 
+
     assets: {
-      list: {
-        inventory: { src: "/images/platformer2/sprites/inventory.png" },
-        width: 256,
-        height: 256,
-        scaleSize: 80,
-        m: { row: 1, frames: 2},
-        r: { row: 2, frames: 2},
-        u: { row: 3, frames: 2},
-        y: { row: 4, frames: 2},
-      },
       obstacles: {
         tube: { src: "/images/platformer2/obstacles/tube.png" },
         coin: { src: "/images/platformer2/obstacles/coin.png"},
         tree: { src: "/images/platformer2/obstacles/tree.png"}
-      },
+      },        
+      inventories: {
+        inventory: { 
+          src: "/images/platformer2/sprites/inventory.png",
+          width: 749,
+          height: 74,
+          scaleSize: 100,
+          m: { row: 1, frames: 2, idleFrame: { column: 1, frames: 0} },
+          r: { row: 2, frames: 2, idleFrame: { column: 1, frames: 0} },
+          u: { row: 3, frames: 2, idleFrame: { column: 1, frames: 0} },
+          y: { row: 4, frames: 2, idleFrame: { column: 1, frames: 0} },
+        }  
+      },    
       platforms: {
         grass: { src: "/images/platformer2/platforms/grass.png" },
         alien: { src: "/images/platformer2/platforms/alien.png" },
@@ -440,9 +443,9 @@ const GameSetup = {
         { name: 'mushroom', id: 'mushroom', class: Mushroom, data: this.assets.enemies.mushroom, xPercentage: 0.09},
         { name: 'mushroom', id: 'mushroom', class: Mushroom, data: this.assets.enemies.mushroom, xPercentage: 0.49},
         { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, yPercentage: 1, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
-        { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario },
-        { name: 'inventory', id: 'inventory', class: Inventory, data: this.assets.list.inventory},
+        { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario},
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
+        { name: 'inventory', id: 'inventory', class: Inventory, data: this.assets.inventories.inventory, xPercentage:  0.5, yPercentage: 100},
         { name: 'complete', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete },
       ];
       // Space Game Level added to the GameEnv ...
