@@ -8,14 +8,14 @@ import GameControl from './GameControl.js';
  * @extends Character
  */
 export class Inventory extends Character {
-    constructor(canvas, image, data, widthPercentage = 0.3, heightPercentage = 0.8) {
-        super(canvas, image, data, widthPercentage, heightPercentage);
+    constructor(canvas, image, data, xPercentage, yPercentage) {
+        super(canvas, image, data);
+        this.inventoryX = xPercentage * GameEnv.innerWidth;
+        this.inventoryY = yPercentage * GameEnv.innerHeight;
         this.inventoryData = data;
         this.pressedKeys = {};
-        this.movement = {up: true, down: true, left: true, right: true};
         this.isIdle = true;
-        
-        this.y = this.y + 200
+    
 
         // Store a reference to the event listener function
         this.keydownListener = this.handleKeyDown.bind(this);
@@ -36,7 +36,8 @@ export class Inventory extends Character {
     // helper: right action key is pressed
     isKeyActionRight(key) { return key === "u"; }
     // helper: dash key is pressed
-    isKeyActionDash(key) { return key === "p"; }
+    isKeyActionDash(key) { return key === "r"; }
+
 
     // helper: action key is in queue 
     isActiveAnimation(key) { return (key in this.pressedKeys) && !this.isIdle; }

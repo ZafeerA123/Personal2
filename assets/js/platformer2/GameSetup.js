@@ -179,7 +179,6 @@ const GameSetup = {
           src: "/images/platformer2/sprites/inventory.png",
           width: 1000,
           height: 98,
-          scaleSize: 100,
           m: { row: 1, frames: 0, },
           r: { row: 2, frames: 0, },
           u: { row: 3, frames: 0, },
@@ -444,12 +443,12 @@ const GameSetup = {
         { name: 'itemBlock', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.itemBlock, xPercentage: 0.4, yPercentage: 0.65 }, //item block is a platform
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, yPercentage: 1, minPosition: 0.05},
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, yPercentage: 1, minPosition: 0.3 },
-        { name: 'mushroom', id: 'mushroom', class: Mushroom, data: this.assets.enemies.mushroom, xPercentage: 0.09},
         { name: 'mushroom', id: 'mushroom', class: Mushroom, data: this.assets.enemies.mushroom, xPercentage: 0.49},
+        { name: 'mushroom', id: 'mushroom', class: Mushroom, data: this.assets.enemies.mushroom, xPercentage: 0.59},
         { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, yPercentage: 1, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
         { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario},
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
-        { name: 'inventory', id: 'inventory', class: Inventory, data: this.assets.inventories.inventory, xPercentage:  0.9, yPercentage: 100},
+        { name: 'inventory', id: 'inventory', class: Inventory, data: this.assets.inventories.inventory, xPercentage:  0.8, yPercentage: 0.95},
         { name: 'complete', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete },
       ];
       // Space Game Level added to the GameEnv ...
