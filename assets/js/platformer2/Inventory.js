@@ -1,4 +1,6 @@
+import GameEnv from './GameEnv.js';
 import Character from './Character.js';
+import GameControl from './GameControl.js';
 
 /**
  * @class Inventory class
@@ -12,7 +14,8 @@ export class Inventory extends Character {
         this.pressedKeys = {};
         this.movement = {up: true, down: true, left: true, right: true};
         this.isIdle = true;
-
+        
+        this.y = this.y + 200
 
         // Store a reference to the event listener function
         this.keydownListener = this.handleKeyDown.bind(this);
@@ -57,8 +60,6 @@ export class Inventory extends Character {
     
         if (!this.isIdle) {
             this.setFrameX(1);
-        } else if (animation.idleFrame) {
-            this.setFrameX(animation.idleFrame.column);
         } else {
             this.setFrameX(1);
         }
@@ -85,7 +86,7 @@ export class Inventory extends Character {
         const key = event.key;
         if (this.inventoryData.hasOwnProperty(key)) {
             this.setAnimation(key);
-            this.isIdle = true;
+            //this.isIdle = true;
         }
     }
 }
