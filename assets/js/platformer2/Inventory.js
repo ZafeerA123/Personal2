@@ -36,7 +36,7 @@ export class Inventory extends Character {
     // helper: right action key is pressed
     isKeyActionRight(key) { return key === "u"; }
     // helper: dash key is pressed
-    isKeyActionDash(key) { return key === "r"; }
+    isKeyActionDash(key) { return key === "p"; }
 
     // helper: action key is in queue 
     isActiveAnimation(key) { return (key in this.pressedKeys) && !this.isIdle; }
