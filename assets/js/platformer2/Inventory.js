@@ -66,6 +66,15 @@ export class Inventory extends Character {
         }
     }
     
+        // Method to hide the coin
+        hide() {
+            this.canvas.style.display = 'none';
+        }
+    
+        // Method to show the coin
+        show() {
+            this.canvas.style.display = 'block';
+        }
 
     /**
      * Handles the keydown event.
@@ -76,6 +85,7 @@ export class Inventory extends Character {
         if (this.inventoryData.hasOwnProperty(key)) {
             this.setAnimation(key);
             this.isIdle = false;
+            this.show();  // Show the sprite when a key is pressed
         }
     }
 
@@ -87,7 +97,8 @@ export class Inventory extends Character {
         const key = event.key;
         if (this.inventoryData.hasOwnProperty(key)) {
             this.setAnimation(key);
-            //this.isIdle = true;
+            this.isIdle = true;
+            this.hide();  // Hide the sprite when a key is released
         }
     }
 }
