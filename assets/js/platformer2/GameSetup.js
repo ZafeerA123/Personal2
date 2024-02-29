@@ -12,12 +12,14 @@ import JumpPlatform from './JumpPlatform.js';
 import Player from './Player.js';
 import Tube from './Tube.js';
 import Tree from './Tree.js';
+import Portal from './Portal.js';
 import Goomba from './Goomba.js';
 import FlyingGoomba from './FlyingGoomba.js';
 import BlockPlatform from './BlockPlatform.js';
 import Mushroom from './Mushroom.js';
 import Inventory from './Inventory.js';
 import Coin from './Coin.js';
+import Flower from './Flower.js';
 
 
 /* Coding Style Notes
@@ -171,19 +173,20 @@ const GameSetup = {
     assets: {
       obstacles: {
         tube: { src: "/images/platformer2/obstacles/tube.png" },
+        portal: {src: "/images/platformer2/obstacles/portal.png"},
         coin: { src: "/images/platformer2/obstacles/coin.png"},
         tree: { src: "/images/platformer2/obstacles/tree.png"}
       },        
       inventories: {
         inventory: { 
           src: "/images/platformer2/sprites/inventory.png",
-          sizeRatio: 83.2,
-          width: 1000,
-          height: 98,
+          width: 420,
+          height: 95.2,
           p: { row: 1, frames: 0, },
           i: { row: 2, frames: 0, },
           u: { row: 3, frames: 0, },
           o: { row: 4, frames: 0, },
+          t: { row: 0, frames: 0, },
         }  
       },    
       platforms: {
@@ -276,6 +279,12 @@ const GameSetup = {
           height: 452,
           scaleSize: 60,
           speedRatio: 0.7,
+        },
+        flower: {
+          src: "/images/platformer2/platforms/flower.png",
+          width: 200,
+          height: 180,
+          u: { row: 1, frames: 0, },
         },
         mushroom: {
           src: "/images/platformer2/platforms/mushroom.png",
@@ -438,23 +447,23 @@ const GameSetup = {
         // GameObject(s), the order is important to z-index...
         { name: 'Level4', id: 'background', class: Background, data: this.assets.backgrounds.Level4 },
         { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
+        { name: 'inventory', id: 'inventory', class: Inventory, data: this.assets.inventories.inventory, xPercentage:  0.03, yPercentage: 0.75},
         { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2, yPercentage: 0.85 },
         { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2368, yPercentage: 0.85 },
         { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.2736, yPercentage: 0.85 },
         { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.block, xPercentage: 0.6, yPercentage: 1 },
-        { name: 'itemBlock', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.itemBlock, xPercentage: 0.4, yPercentage: 0.65 }, //item block is a platform
-        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, yPercentage: 1, minPosition: 0.05},
-        { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, yPercentage: 1, minPosition: 0.3 },
-        { name: 'mushroom', id: 'mushroom', class: Mushroom, data: this.assets.enemies.mushroom, xPercentage: 0.29},
-        { name: 'mushroom', id: 'mushroom', class: Mushroom, data: this.assets.enemies.mushroom, xPercentage: 0.89},
+        { name: 'itemBlock', id: 'jumpPlatform', class: JumpPlatform, data: this.assets.platforms.itemBlock, xPercentage: 0.4, yPercentage: 0.75 }, //item block is a platform
+        //{ name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, yPercentage: 1, minPosition: 0.05},
+        //{ name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, yPercentage: 1, minPosition: 0.3 },
+        { name: 'mushroom', id: 'mushroom', class: Mushroom, data: this.assets.enemies.mushroom, xPercentage: 0.43},
+        { name: 'flower', id: 'flower', class: Flower, data: this.assets.enemies.flower, xPercentage: 0.34},
         { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, yPercentage: 1, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
         { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.1908, yPercentage: 0.75 },
         { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.2242, yPercentage: 0.75 },
         { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.2575, yPercentage: 0.75 },
         { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.5898, yPercentage: 0.900 },
         { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario},
-        { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
-        { name: 'inventory', id: 'inventory', class: Inventory, data: this.assets.inventories.inventory, xPercentage:  0.03, yPercentage: 0.900 },
+        { name: 'portal', id: 'portal', class: Portal, data: this.assets.obstacles.portal },
         { name: 'complete', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete },
       ];
       // Space Game Level added to the GameEnv ...

@@ -14,6 +14,9 @@ export class Inventory extends Character {
         this.x = xPercentage * GameEnv.innerWidth;
         this.minPosition = minPosition * GameEnv.innerWidth;
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
+        this.inventoryY = yPercentage;
+
+
         
         if (GameEnv.destroyedMushroom = true) {
             //
@@ -34,22 +37,6 @@ export class Inventory extends Character {
 
     }
     
-
-
-    // helper: player facing left
-    isFaceLeft() { return this.directionKey === "u"; }
-    // helper: left action key is pressed
-    //isKeyActionLeft(key) { return key === "p"; }
-    // helper: player facing right  
-    isFaceRight() { return this.directionKey === "i"; }
-    // helper: right action key is pressed
-    isKeyActionRight(key) { return key === "o"; }
-    // helper: dash key is pressed
-    isKeyActionDash(key) { return key === "p"; }
-
-
-    // helper: action key is in queue 
-    isActiveAnimation(key) { return (key in this.pressedKeys) && !this.isIdle; }
 
     /**
      * Set animation based on the provided key.
@@ -87,14 +74,16 @@ export class Inventory extends Character {
 
     /**
      * Handles the keydown event.
-     * @param {Event} event - The keydown event.
-     */
+    * @param {Event} event - The keydown event.
+    */
     handleKeyDown(event) {
         const key = event.key;
         if (this.data.hasOwnProperty(key)) {
             this.setAnimation(key);
             this.isIdle = false;
             this.show();  // Show the sprite when a key is pressed
+        } else if (key === 'y') {
+            this.hide();
         }
     }
 
@@ -103,12 +92,16 @@ export class Inventory extends Character {
      * @param {Event} event - The keyup event.
      */
     handleKeyUp(event) {
-        const key = event.key;
-        if (this.data.hasOwnProperty(key)) {
-            this.setAnimation(key);
-            this.isIdle = true;
-            this.hide();  // Hide the sprite when a key is released
-        }
+        // Comment out the following lines to keep the sprite at the current frame
+        // const key = event.key;
+        // if (this.data.hasOwnProperty(key)) {
+        //     this.setAnimation(key);
+        //     this.isIdle = true;
+        //     this.hide();  // Hide the sprite when a key is released
+        // }
+
+        // If you want to hide the sprite when any key is released, uncomment the following line
+        // this.hide();
     }
 }
 
