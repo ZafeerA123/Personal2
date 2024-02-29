@@ -15,7 +15,9 @@ export class Inventory extends Character {
         this.minPosition = minPosition * GameEnv.innerWidth;
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
         
-
+        if (GameEnv.destroyedMushroom = true) {
+            //
+        }
 
         this.data = data;
         this.pressedKeys = {};
@@ -33,16 +35,17 @@ export class Inventory extends Character {
     }
     
 
+
     // helper: player facing left
-    isFaceLeft() { return this.directionKey === "m"; }
+    isFaceLeft() { return this.directionKey === "u"; }
     // helper: left action key is pressed
-    //isKeyActionLeft(key) { return key === "m"; }
+    //isKeyActionLeft(key) { return key === "p"; }
     // helper: player facing right  
-    isFaceRight() { return this.directionKey === "y"; }
+    isFaceRight() { return this.directionKey === "i"; }
     // helper: right action key is pressed
-    isKeyActionRight(key) { return key === "u"; }
+    isKeyActionRight(key) { return key === "o"; }
     // helper: dash key is pressed
-    isKeyActionDash(key) { return key === "r"; }
+    isKeyActionDash(key) { return key === "p"; }
 
 
     // helper: action key is in queue 

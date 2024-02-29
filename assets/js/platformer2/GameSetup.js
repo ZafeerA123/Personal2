@@ -180,14 +180,15 @@ const GameSetup = {
           sizeRatio: 83.2,
           width: 1000,
           height: 98,
-          m: { row: 1, frames: 0, },
-          r: { row: 2, frames: 0, },
+          p: { row: 1, frames: 0, },
+          i: { row: 2, frames: 0, },
           u: { row: 3, frames: 0, },
-          y: { row: 4, frames: 0, },
+          o: { row: 4, frames: 0, },
         }  
       },    
       platforms: {
         grass: { src: "/images/platformer2/platforms/grass.png" },
+        grass1: { src: "/images/platformer2/platforms/grass1.png"},
         alien: { src: "/images/platformer2/platforms/alien.png" },
         bricks: { src: "/images/platformer2/platforms/brick_wall.png" },
         block: { src: "/images/platformer2/platforms/brick_block.png" }, //MAY need 3 new variables: sizeRatio, widthRatio, and heightRatio
@@ -204,12 +205,12 @@ const GameSetup = {
       },
       backgrounds: {
         start: { src: "/images/platformer2/backgrounds/home.png" },
+        Level4: { src: "/images/platformer2/backgrounds/b1.jpg"},
         hills: { src: "/images/platformer2/backgrounds/hills.png" },
         avenida: { src: "/images/platformer2/backgrounds/avenidawide3.jpg" },
         mountains: { src: "/images/platformer2/backgrounds/mountains.jpg" },
         clouds : { src: "/images/platformer2/backgrounds/clouds.png"},
         space: { src: "/images/platformer2/backgrounds/planet.jpg" },
-        Level4: { src: "/images/platformer2/backgrounds/planet.jpg" },
         castles: { src: "/images/platformer2/backgrounds/castles.png" },
         loading: { src: "/images/platformer2/backgrounds/greenscreen.png" },
         complete: { src: "/images/platformer2/backgrounds/OneStar.png" },
