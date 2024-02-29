@@ -8,11 +8,16 @@ import GameControl from './GameControl.js';
  * @extends Character
  */
 export class Inventory extends Character {
-    constructor(canvas, image, data, xPercentage, yPercentage) {
+    constructor(canvas, image, data, xPercentage, yPercentage, minPosition) {
         super(canvas, image, data);
-        this.inventoryX = xPercentage * GameEnv.innerWidth;
-        this.inventoryY = yPercentage * GameEnv.innerHeight;
-        this.inventoryData = data;
+        //Initial Position  X
+        this.x = xPercentage * GameEnv.innerWidth;
+        this.minPosition = minPosition * GameEnv.innerWidth;
+        this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
+        
+
+
+        this.data = data;
         this.pressedKeys = {};
         this.isIdle = true;
     
@@ -26,6 +31,7 @@ export class Inventory extends Character {
         document.addEventListener('keyup', this.keyupListener);
 
     }
+    
 
     // helper: player facing left
     isFaceLeft() { return this.directionKey === "m"; }
@@ -47,7 +53,7 @@ export class Inventory extends Character {
      * @param {string} key - The key representing the animation to set.
      */
     setAnimation(key) {
-        const animation = this.inventoryData[key];
+        const animation = this.data[key];
     
         if (this.isIdle && animation.idleFrame) {
             this.setFrameY(animation.idleFrame.row);
@@ -82,7 +88,7 @@ export class Inventory extends Character {
      */
     handleKeyDown(event) {
         const key = event.key;
-        if (this.inventoryData.hasOwnProperty(key)) {
+        if (this.data.hasOwnProperty(key)) {
             this.setAnimation(key);
             this.isIdle = false;
             this.show();  // Show the sprite when a key is pressed
@@ -95,7 +101,7 @@ export class Inventory extends Character {
      */
     handleKeyUp(event) {
         const key = event.key;
-        if (this.inventoryData.hasOwnProperty(key)) {
+        if (this.data.hasOwnProperty(key)) {
             this.setAnimation(key);
             this.isIdle = true;
             this.hide();  // Hide the sprite when a key is released

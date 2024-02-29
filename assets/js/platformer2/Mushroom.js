@@ -10,12 +10,10 @@ export class Mushroom extends Character {
 
         //Unused but must be Defined
         this.name = name;
-        this.y = yPercentage;
+        this.y = yPercentage * GameEnv.innerHeight;
 
         //Initial Position 
         this.x = xPercentage * GameEnv.innerWidth;
-
-
         this.minPosition = minPosition * GameEnv.innerWidth;
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
 
