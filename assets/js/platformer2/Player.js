@@ -80,6 +80,8 @@ export class Player extends Character {
         if (this.bottom <= this.y || this.movement.down === false) {
             this.setAnimation(this.directionKey);
         }
+
+        //msallchaljfekjlafjdkal;fjkdal
     
         return result;
     }
