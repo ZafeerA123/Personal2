@@ -126,7 +126,7 @@ image: /images/platformer/backgrounds/home.png
       
         let cutStory = document.getElementById('cut-story');
         let messages = ["Hi! My name is Mario, and I wish...", 
-        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!","This game was provided by csse Inc.","To see active inventory slot, press!"];
+        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!","This game was provided by csse Inc.","To see active inventory slot, press T, U, R, and Y!"];
       
 
         

@@ -22,7 +22,7 @@ export class Portal extends GameObject {
         // Formula for Width is scaled: scaledWidth/scaledHeight == this.width/this.height
         const scaledWidth = scaledHeight * this.aspect_ratio;
         const portalX = .80 * GameEnv.innerWidth;
-        const portalY = (GameEnv.bottom - (.25 * scaledHeight));
+        const portalY = (GameEnv.bottom - (.20 * scaledHeight));
 
         // set variables used in Display and Collision algorithms
         this.bottom = portalY;
