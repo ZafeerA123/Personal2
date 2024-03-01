@@ -481,6 +481,7 @@ const GameSetup = {
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, yPercentage: 1, minPosition: 0.05},
         { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, yPercentage: 1, minPosition: 0.3 },
         { name: 'mushroom', id: 'mushroom', class: Mushroom, data: this.assets.enemies.mushroom, xPercentage: 0.43},
+        { name: 'fire', id: 'fire', class: Fire, data: this.assets.enemies.fire, xPercentage:  0.9, minPosition: 0.5},
         { name: 'flower', id: 'flower', class: Flower, data: this.assets.enemies.flower, xPercentage: 0.34},
         { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, yPercentage: 1, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
         { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.1908, yPercentage: 0.75 },
