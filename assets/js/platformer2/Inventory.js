@@ -72,37 +72,42 @@ export class Inventory extends Character {
             this.canvas.style.display = 'block';
         }
 
-    /**
-     * Handles the keydown event.
-    * @param {Event} event - The keydown event.
-    */
-    handleKeyDown(event) {
-        const key = event.key;
-        if (this.data.hasOwnProperty(key)) {
-            this.setAnimation(key);
-            this.isIdle = false;
-            this.show();  // Show the sprite when a key is pressed
-        } else if (key === 'y') {
-            this.hide();
+/**
+ * Handles the keydown event.
+ * @param {Event} event - The keydown event.
+ */
+handleKeyDown(event) {
+    const key = event.key;
+    if (this.data.hasOwnProperty(key)) {
+        this.setAnimation(key);
+        this.isIdle = false;
+        this.show();  // Show the sprite when a key is pressed
+
+        // Clear any existing timeout to ensure it doesn't hide prematurely
+        if (this.hideTimeout) {
+            clearTimeout(this.hideTimeout);
+        }
+    } else if (key === 'y') {
+        this.hide();
+    }
+}
+
+/**
+ * Handles the keyup event.
+ * @param {Event} event - The keyup event.
+ */
+handleKeyUp(event) {
+    const key = event.key;
+    if (this.data.hasOwnProperty(key)) {
+        this.setAnimation(key);
+        this.isIdle = true;
+
+        // Check if the key was held down (no timeout set)
+        if (!this.hideTimeout) {
+            this.hide();  // Hide the sprite only if the key was not held down
         }
     }
-
-    /**
-     * Handles the keyup event.
-     * @param {Event} event - The keyup event.
-     */
-    handleKeyUp(event) {
-        // Comment out the following lines to keep the sprite at the current frame
-        // const key = event.key;
-        // if (this.data.hasOwnProperty(key)) {
-        //     this.setAnimation(key);
-        //     this.isIdle = true;
-        //     this.hide();  // Hide the sprite when a key is released
-        // }
-
-        // If you want to hide the sprite when any key is released, uncomment the following line
-        // this.hide();
-    }
+}
 }
 
 export default Inventory;

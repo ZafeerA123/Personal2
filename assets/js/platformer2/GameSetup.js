@@ -20,6 +20,7 @@ import Mushroom from './Mushroom.js';
 import Inventory from './Inventory.js';
 import Coin from './Coin.js';
 import Flower from './Flower.js';
+import player1 from './Player1.js';
 
 
 /* Coding Style Notes
@@ -180,9 +181,8 @@ const GameSetup = {
       inventories: {
         inventory: { 
           src: "/images/platformer2/sprites/inventory.png",
-          width: 420,
-          height: 95.2,
-          p: { row: 1, frames: 0, },
+          width: 310,
+          height: 96.5,
           i: { row: 2, frames: 0, },
           u: { row: 3, frames: 0, },
           o: { row: 4, frames: 0, },
@@ -234,6 +234,19 @@ const GameSetup = {
           s: { row: 12, frames: 15 },
           d: { row: 2, frames: 7, idleFrame: { column: 7, frames: 0 } }
         },
+        marioR: {
+          src: "/images/platformer2/sprites/marioR.png",
+          width: 256,
+          height: 256,
+          scaleSize: 80,
+          speedRatio: 0.7,
+          w: { row: 10, frames: 15 },
+          wa: { row: 11, frames: 15 },
+          wd: { row: 10, frames: 15 },
+          a: { row: 3, frames: 7, idleFrame: { column: 7, frames: 0 } },
+          s: { row: 12, frames: 15 },
+          d: { row: 2, frames: 7, idleFrame: { column: 7, frames: 0 } }
+        },   
         monkey: {
           src: "/images/platformer2/sprites/monkey.png",
           width: 40,
@@ -275,6 +288,13 @@ const GameSetup = {
         },
         flyingGoomba: {
           src: "/images/platformer2/sprites/flying-goomba.png",
+          width: 448,
+          height: 452,
+          scaleSize: 60,
+          speedRatio: 0.7,
+        },
+        fire: {
+          src: "/images/platformer2/sprites/fire.png",
           width: 448,
           height: 452,
           scaleSize: 60,
@@ -388,6 +408,7 @@ const GameSetup = {
         { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.2575, yPercentage: 0.75 },
         { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.5898, yPercentage: 0.900 },
         { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario },
+        { name: 'marioR', id: 'player', class: player1, data: this.assets.players.marioR},
         { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
         { name: 'loading', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.loading },
         ];
@@ -462,6 +483,8 @@ const GameSetup = {
         { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.2242, yPercentage: 0.75 },
         { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.2575, yPercentage: 0.75 },
         { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.5898, yPercentage: 0.900 },
+        { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
+        { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
         { name: 'mario', id: 'player', class: Player, data: this.assets.players.mario},
         { name: 'portal', id: 'portal', class: Portal, data: this.assets.obstacles.portal },
         { name: 'complete', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete },

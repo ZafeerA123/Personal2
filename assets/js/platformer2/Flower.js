@@ -104,12 +104,10 @@ export class Flower extends Character {
                 }).bind(this), 1500);
             }
 
-            this.destroyedflower = true;
 
             if (GameEnv.destroyedMushroom = true)
                 alert(" To get a special fire powerup, press U! ")
-                this.destroyedflower = false;
-        }     
+            }     
 
 
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {

@@ -43,6 +43,7 @@ export class GameEnv {
      * @property {boolean} transitionHide - used to hide the transition screen
      * @property {number} gravity - localstorage key, used by platformer objects
      * @property {boolean} destroyedMushroom - to see when mushroom is destroyed
+     * @property {boolean} destroyedFlower 
      * @property {boolean} playMessage
      * @property {Object} difficulty - localstorage key, used by GameControl
      * @property {number} innerWidth - used by platformer objects
@@ -67,6 +68,7 @@ export class GameEnv {
     static transitionHide = false;
     static gravity = 3;
     static destroyedMushroom = false;
+    static destroyedFlower = false;
     static playMessage = false;
     static difficulty = "normal";
     static innerWidth;
