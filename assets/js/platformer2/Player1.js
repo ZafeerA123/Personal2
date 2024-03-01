@@ -2,27 +2,28 @@ import GameEnv from './GameEnv.js';
 import Character from './Character.js';
 import GameControl from './GameControl.js';
 import playJump from './Audio1.js';
-import playplayer1Death from './Audio2.js';
+import playplayerDeath from './Audio2.js';
 
 /**
- * @class player1 class
- * @description player1.js key objective is to eent the user-controlled character in the game.   
+ * @class player class
+ * @description player.js key objective is to eent the user-controlled character in the game.   
  * 
- * The player1 class extends the Character class, which in turn extends the GameObject class.
+ * The player class extends the Character class, which in turn extends the GameObject class.
  * Animations and events are activated by key presses, collisions, and gravity.
- * WASD keys are used by user to control The player1 object.  
+ * WASD keys are used by user to control The player object.  
  * 
  * @extends Character
  */
-export class player1 extends Character {
-    // instantiation: constructor sets up player1 object 
+export class Player1 extends Character {
+    // instantiation: constructor sets up player object 
     constructor(canvas, image, data, widthPercentage = 0.3, heightPercentage = 0.8) {
         super(canvas, image, data, widthPercentage, heightPercentage);
-        // player1 Data is required for Animations
-        this.player1Data = data;
+        // player Data is required for Animations
+        this.playerData = data;
         GameEnv.invincible = false; 
 
-        // player1 control data
+
+        // player control data
         this.moveSpeed = this.speed * 3;
         this.pressedKeys = {};
         this.movement = {up: true, down: true, left: true, right: true};
@@ -37,7 +38,7 @@ export class player1 extends Character {
         document.addEventListener('keydown', this.keydownListener);
         document.addEventListener('keyup', this.keyupListener);
 
-        GameEnv.player1 = this;
+        GameEnv.player = this;
         this.transitionHide = false;
         this.shouldBeSynced = true;
         this.isDying = false;
@@ -45,23 +46,28 @@ export class player1 extends Character {
         this.timer = false;
 
         this.name = GameEnv.userID;
+
+        this.teleportCooldown = 2000; // 2 seconds
+        this.lastTeleportTime = 0;
     }
 
     /**
-     * Helper methods for checking the state of the player1.
+     * Helper methods for checking the state of the player.
      * Each method checks a specific condition and returns a boolean indicating whether that condition is met.
      */
 
-    // helper: player1 facing left
+    // helper: player facing left
     isFaceLeft() { return this.directionKey === "a"; }
     // helper: left action key is pressed
     isKeyActionLeft(key) { return key === "a"; }
-    // helper: player1 facing right  
+    // helper: player facing right  
     isFaceRight() { return this.directionKey === "d"; }
     // helper: right action key is pressed
     isKeyActionRight(key) { return key === "d"; }
     // helper: dash key is pressed
     isKeyActionDash(key) { return key === "s"; }
+    //
+    isKeyActionTele(key) { return key === "t"; }
 
     // helper: action key is in queue 
     isActiveAnimation(key) { return (key in this.pressedKeys) && !this.isIdle; }
@@ -77,13 +83,33 @@ export class player1 extends Character {
         return result;
     }
 
+    teleport() {
+        // Set teleport animation or any specific teleport visuals
+        // Adjust teleport distance according to your game logic
+        const teleportDistance = 200;
+        console.log("Teleporting...");
+
+        // Teleport to the right
+        if (this.isFaceRight("t")) {
+            this.x += teleportDistance;
+            console.log("Teleported to the right");
+        }
+        // Teleport to the left
+        else if (this.isFaceLeft("t")) {
+            this.x -= teleportDistance;
+            console.log("Teleported to the left");
+        }
+
+        // Add any additional teleport effects or logic here
+    }
+
     goombaCollision() {
         if (this.timer === false) {
             this.timer = true;
             if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
                 this.canvas.style.transition = "transform 0.5s";
                 this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
-                playplayer1Death();
+                playplayerDeath();
 
                 if (this.isDying == false) {
                     this.isDying = true;
@@ -99,23 +125,23 @@ export class player1 extends Character {
         }
     }
     /**
-     * This helper method that acts like an animation manager. Frames are set according to player1 events.
-     *  - Sets the animation of the player1 based on the provided key.
-     *  - The key is used to look up the animation frame and idle in the objects player1Data.
+     * This helper method that acts like an animation manager. Frames are set according to player events.
+     *  - Sets the animation of the player based on the provided key.
+     *  - The key is used to look up the animation frame and idle in the objects playerData.
      * If the key corresponds to a left or right movement, the directionKey is updated.
      * 
      * @param {string} key - The key representing the animation to set.
      */
     setAnimation(key) {
-        // animation comes from player1Data
-        var animation = this.player1Data[key]
+        // animation comes from playerData
+        var animation = this.playerData[key]
         // direction setup
         if (this.isKeyActionLeft(key)) {
             this.directionKey = key;
-            this.player1Data.w = this.player1Data.wa;
+            this.playerData.w = this.playerData.wa;
         } else if (this.isKeyActionRight(key)) {
             this.directionKey = key;
-            this.player1Data.w = this.player1Data.wd;
+            this.playerData.w = this.playerData.wd;
         }
         // set frame and idle frame
         this.setFrameY(animation.row);
@@ -127,20 +153,23 @@ export class player1 extends Character {
     }
    
     /**
-     * gameloop: updates the player1's state and position.
-     * In each refresh cycle of the game loop, the player1-specific movement is updated.
-     * - If the player1 is moving left or right, the player1's x position is updated.
-     * - If the player1 is dashing, the player1's x position is updated at twice the speed.
+     * gameloop: updates the player's state and position.
+     * In each refresh cycle of the game loop, the player-specific movement is updated.
+     * - If the player is moving left or right, the player's x position is updated.
+     * - If the player is dashing, the player's x position is updated at twice the speed.
      * This method overrides Character.update, which overrides GameObject.update. 
      * @override
      */
 
     update() {
-        //Update the player1 Position Variables to match the position of the player1
-        GameEnv.player1Position.player1X = this.x;
-        GameEnv.player1Position.player1Y = this.y;
+        if (this.isActiveAnimation("t")) {
+            this.teleport();
+        }
+        //Update the player Position Variables to match the position of the player
+        GameEnv.PlayerPosition.playerX = this.x;
+        GameEnv.PlayerPosition.playerY = this.y;
 
-        // GoombaBounce deals with player1.js and goomba.js
+        // GoombaBounce deals with player.js and goomba.js
         if (GameEnv.goombaBounce === true) {
             GameEnv.goombaBounce = false;
             this.y = this.y - 100;
@@ -151,18 +180,19 @@ export class player1 extends Character {
             this.y = this.y - 250
         } 
 
-        // player1 moving right 
+        // player moving right 
         if (this.isActiveAnimation("a")) {
             if (this.movement.left) this.x -= this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to left
         }
-        // player1 moving left
+        // player moving left
         if (this.isActiveAnimation("d")) {
             if (this.movement.right) this.x += this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to right
         }
-        // player1 moving at dash speed left or right 
+        // player moving at dash speed left or right 
         if (this.isActiveAnimation("s")) {}
+        //
 
-        // player1 jumping
+        // player jumping
         if (this.isActiveGravityAnimation("w")) {
             playJump();
             if (this.gravityEnabled) {
@@ -178,7 +208,7 @@ export class player1 extends Character {
             }
         }
 
-        //Prevent player1 from Dashing Through Tube
+        //Prevent player from Dashing Through Tube
         let tubeX = (.80 * GameEnv.innerWidth)
         if (this.x >= tubeX && this.x <= GameEnv.innerWidth) {
             this.x = tubeX - 1;
@@ -187,7 +217,7 @@ export class player1 extends Character {
             GameEnv.backgroundMountainsSpeed = 0;
         }
 
-        //Prevent player1 from Leaving from Screen
+        //Prevent player from Leaving from Screen
         if (this.x < 0) {
             this.x = 1;
 
@@ -206,9 +236,9 @@ export class player1 extends Character {
     }
 
     /**
-     * gameloop:  responds to level change and game over destroy player1 object
+     * gameloop:  responds to level change and game over destroy player object
      * This method is used to remove the event listeners for keydown and keyup events.
-     * After removing the event listeners, it calls the parent class's destroy player1 object. 
+     * After removing the event listeners, it calls the parent class's destroy player object. 
      * This method overrides GameObject.destroy.
      * @override
      */
@@ -223,9 +253,9 @@ export class player1 extends Character {
 
     /**
      * gameloop: performs action on collisions
-     * Handles the player1's actions when a collision occurs.
+     * Handles the player's actions when a collision occurs.
      * This method checks the collision, type of game object, and then to determine action, e.g game over, animation, etc.
-     * Depending on the side of the collision, it performs player1 action, e.g. stops movement, etc.
+     * Depending on the side of the collision, it performs player action, e.g. stops movement, etc.
      * This method overrides GameObject.collisionAction. 
      * @override
      */
@@ -239,7 +269,7 @@ export class player1 extends Character {
             if (this.collisionData.touchPoints.other.right) {
                 this.movement.left = false;
             }
-            // Collision with the top of the player1
+            // Collision with the top of the player
             if (this.collisionData.touchPoints.other.bottom) {
                 this.x = this.collisionData.touchPoints.other.x;
                 this.gravityEnabled = false; // stop gravity
@@ -266,7 +296,7 @@ export class player1 extends Character {
             if (this.collisionData.touchPoints.other.right) {
                 this.movement.left = false;
             }
-            // Collision with the top of the player1
+            // Collision with the top of the player
             if (this.collisionData.touchPoints.other.bottom) {
                 this.x = this.collisionData.touchPoints.other.x;
                 this.gravityEnabled = false; // stop gravity
@@ -293,7 +323,7 @@ export class player1 extends Character {
             if (this.collisionData.touchPoints.other.right) {
                 this.movement.left = false;
             }
-            // Collision with the top of the player1
+            // Collision with the top of the player
             if (this.collisionData.touchPoints.other.bottom) {
                 this.x = this.collisionData.touchPoints.other.x;
                 this.gravityEnabled = false; // stop gravity
@@ -325,6 +355,17 @@ export class player1 extends Character {
                 // Collision with the right side of the Enemy
             }
         } 
+
+        if (this.collisionData.touchPoints.other.id === "coin") {
+            this.canvas.style.filter = 'brightness(1000%)';
+            //alert("Coins give you inviciblity for 5 seconds! Press Y to use the invincibility! ")
+            GameEnv.invincible = true;
+
+            setTimeout(() => {
+                this.canvas.style.filter = 'invert(0)';
+                GameEnv.invincible = false;
+            },  5000); 
+        }    
 
         if (this.collisionData.touchPoints.other.id === "mushroom") {
             GameEnv.destroyedMushroom = true;
@@ -373,18 +414,18 @@ export class player1 extends Character {
      * Handles the keydown event.
      * This method checks the pressed key, then conditionally:
      * - adds the key to the pressedKeys object
-     * - sets the player1's animation
+     * - sets the player's animation
      * - adjusts the game environment
      *
      * @param {Event} event - The keydown event.
      */    
     
     handleKeyDown(event) {
-        if (this.player1Data.hasOwnProperty(event.key)) {
+        if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (!(event.key in this.pressedKeys)) {
                 //If both 'a' and 'd' are pressed, then only 'd' will be inputted
-                //Originally if this is deleted, player1 would stand still. 
+                //Originally if this is deleted, player would stand still. 
                 if (this.pressedKeys['a'] && key === 'd') {
                     delete this.pressedKeys['a']; // Remove "a" key from pressedKeys
                     return; //(return) = exit early
@@ -392,9 +433,9 @@ export class player1 extends Character {
                     // If "d" is pressed and "a" is pressed afterward, ignore "a" key
                     return;
                 }
-                this.pressedKeys[event.key] = this.player1Data[key];
+                this.pressedKeys[event.key] = this.playerData[key];
                 this.setAnimation(key);
-                // player1 active
+                // player active
                 this.isIdle = false;
                 GameEnv.transitionHide = true;
             }
@@ -404,7 +445,21 @@ export class player1 extends Character {
                 GameEnv.dash = true;
                 this.canvas.style.filter = 'invert(1)';
             }
-            // parallax background speed starts on player1 movement
+            if (!GameEnv.invincible) {
+                if (this.isActiveAnimation("a")) { 
+                this.canvas.style.filter = 'sepia(100%) hue-rotate(30deg) saturate(200%) brightness(100%)';
+                }     
+                if (this.isActiveAnimation("s")){
+                this.canvas.style.filter = 'sepia(100%) hue-rotate(30deg) saturate(200%) brightness(100%)';
+                }    
+                if (this.isActiveAnimation("d")) {
+                    this.canvas.style.filter = 'invert(0)'
+                }  
+            }     
+
+            
+            
+            // parallax background speed starts on player movement
             if (this.isKeyActionLeft(key) && this.x > 2) {
                 GameEnv.backgroundHillsSpeed = -0.4;
                 GameEnv.backgroundMountainsSpeed = -0.1;
@@ -413,15 +468,13 @@ export class player1 extends Character {
                 GameEnv.backgroundMountainsSpeed = 0.1;
             } 
 
-            if (GameEnv.destroyedFlower = true)
-                this.canvas.style.display = 'block';
-            // Check if "u" key is pressed
-            if (key === "u") {
-                GameEnv.destroyedFlower = false;
+            if (GameEnv.destroyedFlower === true) {
+                this.show();
+            }     
+            if (GameEnv.destroyedFlower === false) {
+                this.hide();
             }
-            if (GameEnv.destroyedFlower = false) {
-                this.canvas.style.display = 'none';
-            }
+            
             /* else if (this.isKeyActionDash(key) && this.directionKey === "a") {
                  GameEnv.backgroundHillsSpeed = -0.4;
                  GameEnv.backgroundMountainsSpeed = -0.1;
@@ -429,6 +482,14 @@ export class player1 extends Character {
                  GameEnv.backgroundHillsSpeed = 0.4;
                  GameEnv.backgroundMountainsSpeed = 0.1;
             } */ // This was unnecessary, and broke hitboxes / alloswed diffusion through matter
+        }
+        if (this.isKeyActionTele("t")) {
+            // Check if enough time has passed since the last teleport
+            const currentTime = Date.now();
+            if (currentTime - this.lastTeleportTime >= this.teleportCooldown) {
+                this.teleport();
+                this.lastTeleportTime = currentTime;
+            }
         }
     }
 
@@ -439,13 +500,13 @@ export class player1 extends Character {
      * @param {Event} event - The keyup event.
      */
     handleKeyUp(event) {
-        if (this.player1Data.hasOwnProperty(event.key)) {
+        if (this.playerData.hasOwnProperty(event.key)) {
             const key = event.key;
             if (event.key in this.pressedKeys) {
                 delete this.pressedKeys[event.key];
             }
             this.setAnimation(key);  
-            // player1 idle
+            // player idle
             this.isIdle = true;
             // dash action off
             if (this.isKeyActionDash(key)) {
@@ -461,4 +522,4 @@ export class player1 extends Character {
     }
 }
 
-export default player1;
+export default Player1;

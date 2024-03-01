@@ -56,7 +56,12 @@ export class Coin extends GameObject {
             this.destroy();
             coinSound();
         }
+        if (this.collisionData.touchPoints.other.id === "player1") {
+            this.destroy();
+            coinSound();
+        }
     }
+    
     
     // Method to hide the coin
     hide() {

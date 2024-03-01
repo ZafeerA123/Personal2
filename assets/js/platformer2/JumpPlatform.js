@@ -33,7 +33,19 @@ export class JumpPlatform extends GameObject {
             } else if (this.relativeX === "") {
                 this.relativeX = 0;
             }
-        }        
+        }      
+        //collision only detects mario and it only applies to the item block
+        if (this.collisionData.touchPoints.other.id === "player1" && this.name === "itemBlock") {
+            if (this.relativeX === 0 || this.relativeX === this.canvas.width) {
+                if (this.relativeX === 0) {
+                    GameControl.startRandomEvent();
+                    //console.log("randomEventtriggered", GameControl.randomEventId);
+                };
+                this.relativeX = -1 * this.canvas.width;
+            } else if (this.relativeX === "") {
+                this.relativeX = 0;
+            }
+        }    
     }
 
     // Set platform position

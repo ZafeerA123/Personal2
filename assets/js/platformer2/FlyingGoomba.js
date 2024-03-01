@@ -88,7 +88,7 @@ export class FlyingGoomba extends Character {
                 this.speed = -this.speed;            
             }
         }
-        if (this.collisionData.touchPoints.other.id === "player") {
+        if (this.collisionData.touchPoints.other.id === "player" || this.collisionData.touchPoints.other.id === "player1") {
             this.speed = 0;
             // Collision: Top of Goomba with Bottom of Player
             console.log(this.collisionData.touchPoints.other.bottom + 'bottom')

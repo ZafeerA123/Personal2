@@ -325,10 +325,11 @@ export class SettingsControl extends LocalStorage{
         gravity.type = "number";
         gravity.min = 1.0;
         gravity.max = 8.0;
-        gravity.step = 0.1;
         gravity.default = 3.0; // customed property for default value
         gravity.value = GameEnv.gravity; // GameEnv contains latest gravity
         gravity.className = "input gravity";    // custom style in platformer-styles.scss
+        gravity.special = 5.0
+
     
         gravity.addEventListener("change", () => { 
             // check values are within range
@@ -341,6 +342,7 @@ export class SettingsControl extends LocalStorage{
         div.append(gravity); // wrap input element in div
         return div;
     }
+
 
 
     /**
@@ -363,6 +365,7 @@ export class SettingsControl extends LocalStorage{
         });
     
         difficulty.value = GameEnv.difficulty; // GameEnv contains latest difficulty
+
     
         difficulty.addEventListener("change", () => {
             // dispatch event to update difficulty

@@ -32,6 +32,9 @@ image: /images/platformer/backgrounds/home.png
 <!--Audio for coin collection -->
 <audio id ="coin" src="{{site.baseurl}}/assets/audio/coin.mp3" preload="auto"></audio>
 
+<!--Audio for Mario R -->
+<audio id ="MarioR" src="{{site.baseurl}}/assets/audio/MarioR.mp3" preload="auto"></audio>
+
 
 <!-- Wrap both the controls and gameplay in a container div -->
 <div id="canvasContainer">
@@ -123,7 +126,7 @@ image: /images/platformer/backgrounds/home.png
       
         let cutStory = document.getElementById('cut-story');
         let messages = ["Hi! My name is Mario, and I wish...", 
-        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!","This game was provided by csse Inc.","Stomp on Mushroom to get 3 seconds off your total time!","Press U, I, O, and P to get different level ups!"];
+        "I wish I could be just as cool as this guy, Mr. Lopez.", "Help me get to the next level to become him!","This game was provided by csse Inc.","To see active inventory slot, press!"];
       
 
         

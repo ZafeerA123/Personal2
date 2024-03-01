@@ -29,6 +29,8 @@ export class Player extends Character {
         this.movement = {up: true, down: true, left: true, right: true};
         this.isIdle = true;
         this.directionKey = "d"; // initially facing right
+        this.hideKey = "u"
+
 
         // Store a reference to the event listener function
         this.keydownListener = this.handleKeyDown.bind(this);
@@ -63,7 +65,11 @@ export class Player extends Character {
     isKeyActionRight(key) { return key === "d"; }
     // helper: dash key is pressed
     isKeyActionDash(key) { return key === "s"; }
-
+    //Helper
+    isKeyActionHide(key) { return key === "u"; }
+    //helper
+    isHidePlayer(key) { return key === "u"; }
+ 
     // helper: action key is in queue 
     isActiveAnimation(key) { return (key in this.pressedKeys) && !this.isIdle; }
     // helper: gravity action key is in queue
@@ -366,6 +372,15 @@ export class Player extends Character {
             this.gravityEnabled = true;
         }
     }
+
+    // Method to hide 
+    hide() {
+        this.canvas.style.display = 'none';
+    }
+    // Method to show 
+    show() {
+        this.canvas.style.display = 'block';
+    }
     
     
     
@@ -398,7 +413,7 @@ export class Player extends Character {
                 // player active
                 this.isIdle = false;
                 GameEnv.transitionHide = true;
-            }
+            } 
 
             // dash action on
             if (this.isKeyActionDash(key)) {
@@ -413,17 +428,16 @@ export class Player extends Character {
                 GameEnv.backgroundHillsSpeed = 0.4;
                 GameEnv.backgroundMountainsSpeed = 0.1;
             } 
-            if (GameEnv.destroyedFlower = false)
-                this.canvas.style.display = 'block';
-            // Check if "u" key is pressed
-            if (key === "u") {
-            GameEnv.destroyedFlower = true;
-            }
-            if (GameEnv.destroyedFlower = true) {
-                this.canvas.style.display = 'none';
-            }   
 
-                
+
+            if (GameEnv.destroyedFlower === false) {
+                this.show();
+            }     
+            if (GameEnv.destroyedFlower === true) {
+                this.hide();
+            }
+
+     
 
             /* else if (this.isKeyActionDash(key) && this.directionKey === "a") {
                  GameEnv.backgroundHillsSpeed = -0.4;

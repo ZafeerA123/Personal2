@@ -98,13 +98,13 @@ export class Goomba extends Character {
                 this.speed = -this.speed;            
             }
         }
+        if (this.collisionData.touchPoints.other.id === "inventory") {
+            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+                this.speed = -this.speed;            
+            }
+        }
 
         if (this.collisionData.touchPoints.other.id === "player") {
-            // Collision: Top of Goomba with Bottom of Player
-            //console.log(this.collisionData.touchPoints.other.bottom + 'bottom')
-            //console.log(this.collisionData.touchPoints.other.top + "top")
-            //console.log(this.collisionData.touchPoints.other.right + "right")
-            //console.log(this.collisionData.touchPoints.other.left + "left")
             if (this.collisionData.touchPoints.other.bottom && this.immune == 0) {
                 GameEnv.invincible = true;
                 GameEnv.goombaBounce = true;
@@ -131,6 +131,11 @@ export class Goomba extends Character {
 
         if (this.collisionData.touchPoints.other.id === "goomba") {
             if (GameEnv.difficulty !== "impossible" && (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right)) {
+                this.speed = -this.speed;      
+            }
+        }
+        if (this.collisionData.touchPoints.other.id === "fire") {
+            if ((this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right)) {
                 this.speed = -this.speed;      
             }
         }

@@ -1,7 +1,8 @@
 import Character from './Character.js';
 import GameEnv from './GameEnv.js';
 import GameControl from './GameControl.js';
-import MushroomSound from './Audio3.js';
+import RSound from './Audio5.js';
+
 
 export class Flower extends Character {
     // constructors sets up Character object 
@@ -80,6 +81,33 @@ export class Flower extends Character {
                 this.speed = -this.speed;            
             }
         }
+        if (this.collisionData.touchPoints.other.id === "player1") {
+            // Collision: Top of Goomba with Bottom of Player
+            //console.log(this.collisionData.touchPoints.other.bottom + 'bottom')
+            //console.log(this.collisionData.touchPoints.other.top + "top")
+            //console.log(this.collisionData.touchPoints.other.right + "right")
+            //console.log(this.collisionData.touchPoints.other.left + "left")
+            if (this.collisionData.touchPoints.other.bottom && this.immune == 0) {
+                GameEnv.invincible = true;
+                GameEnv.goombaBounce1 = true;
+                GameEnv.destroyedFlower = true;
+                this.canvas.style.transition = "transform 1.5s, opacity 1s";
+                this.canvas.style.transition = "transform 2s, opacity 1s";
+                this.canvas.style.transformOrigin = "bottom"; 
+                this.canvas.style.transform = "scaleY(0)"; 
+                this.speed = 0;
+                RSound();
+
+                setTimeout((function() {
+                    GameEnv.invincible = false;
+                    this.destroy();
+                }).bind(this), 1500);
+            }
+
+
+            if (GameEnv.destroyedFlower === true)
+                alert(" Flowers give a special teleport ability! To use it, Press Ok, and then Press T on your keyboard. ")
+            }   
 
         if (this.collisionData.touchPoints.other.id === "player") {
             // Collision: Top of Goomba with Bottom of Player
@@ -90,24 +118,23 @@ export class Flower extends Character {
             if (this.collisionData.touchPoints.other.bottom && this.immune == 0) {
                 GameEnv.invincible = true;
                 GameEnv.goombaBounce1 = true;
+                GameEnv.destroyedFlower = true;
                 this.canvas.style.transition = "transform 1.5s, opacity 1s";
                 this.canvas.style.transition = "transform 2s, opacity 1s";
                 this.canvas.style.transformOrigin = "bottom"; 
                 this.canvas.style.transform = "scaleY(0)"; 
                 this.speed = 0;
-                MushroomSound();
+                RSound();
 
                 setTimeout((function() {
                     GameEnv.invincible = false;
                     this.destroy();
-                    GameEnv.destroyedMushroom = true;
                 }).bind(this), 1500);
             }
-
-
-            if (GameEnv.destroyedMushroom = true)
-                alert(" To get a special fire powerup, press U! ")
             }     
+
+
+
 
 
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
